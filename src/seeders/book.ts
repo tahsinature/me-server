@@ -3,12 +3,13 @@ import faker from 'faker'
 
 class Seeder {
   public async seed(count: number) {
+    await Book.deleteMany({})
     const all = []
+
     for (const _i of Array(count)) {
       const corporateProductAddon = await this.createOne()
       all.push(corporateProductAddon)
     }
-    console.log(`${all.length} data created for the collection: ${Book.collection.name}`)
 
     return all
   }
@@ -21,4 +22,4 @@ class Seeder {
   }
 }
 
-export const bookSeeder = new Seeder()
+export default new Seeder()

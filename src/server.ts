@@ -1,10 +1,7 @@
-import dotenv from 'dotenv'
-
-const result = dotenv.config()
-if (result.error) dotenv.config({ path: '.env.default' })
-
 import Container from './container'
 import logger from './logger'
+import { initSocket } from '@src/socket'
+import http from 'http'
 
 class Server {
   constructor(private container: Container) {
@@ -15,8 +12,10 @@ class Server {
   }
 
   public async run() {
-    const port = process.env.PORT || 3000
-    const server = this.container.app.listen(port)
+    const port = process.env.PORT || 3001
+    const server = new http.Server(this.container.app).listen(port)
+
+    initSocket(server)
 
     server.on('listening', () => {
       console.log('\x1b[36m%s\x1b[0m', `🌏 Express server started at http://localhost:${port}`)

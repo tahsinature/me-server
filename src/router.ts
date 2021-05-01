@@ -19,7 +19,7 @@ const swaggerUiOptions: SwaggerUiOptions = { customCss: '.swagger-ui .topbar { d
 
 const router = Router()
 
-// Book routes
+// Book router
 router.post('/book/add', bookControllers.add.requestHandler)
 router.get('/book/all', bookControllers.all.requestHandler)
 router.get('/book/search', bookControllers.search.requestHandler)

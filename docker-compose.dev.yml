@@ -2,15 +2,17 @@ version: '3'
 
 services:
   mongo:
-    image: mongo
     container_name: mongo-dev
-    restart: always
-    networks:
-      - dev-network
+    image: mongo:4.2.7
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=developer
+    ports:
+      - 27017:27017
     volumes:
       - ./data/dev/mongo:/data/db
-    ports:
-      - '27017:27017'
+    networks:
+      - dev-network
 
 networks:
   dev-network:

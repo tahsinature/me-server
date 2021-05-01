@@ -1,7 +1,7 @@
-import { BaseController } from '@root/src/controllers/baseController'
+import { BaseController } from '@src/controllers/api/baseController'
 import { Request, Response } from 'express'
 import Joi from 'joi'
-import Book from '../../models/Book'
+import Book from '../../../models/Book'
 
 export default class extends BaseController {
   requestValidationSchema = {

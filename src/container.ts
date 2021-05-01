@@ -1,24 +1,29 @@
+import dotenv from 'dotenv'
+const result = dotenv.config()
+if (result.error) dotenv.config({ path: '.env.default' })
 import express, { Request, Response, NextFunction } from 'express'
 import 'express-async-errors'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import path from 'path'
-import ApplicationError from './errors/application-error'
-import routes from './routes'
-import MongoConnection from './mongo-connection'
 import errCodes from '@root/src/errors/error-codes'
 import logger from '@root/src/logger'
 import morgan from 'morgan'
+import cors from 'cors'
+import { closeFirebase } from '@src/firebase'
+import router from '@src/router'
+import ApplicationError from '@src/errors/application-error'
+import MongoConnection from '@src/mongo-connection'
 
 const app = express()
-
 app.use(morgan('dev'))
 app.use(compression())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
+app.use(cors())
 
-app.use(routes)
+app.use(router)
 
 app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
   if (res.headersSent) return next(err)
@@ -32,7 +37,7 @@ app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
 
 class Container {
   public readonly app = app
-  private readonly mongoConnection = new MongoConnection(process.env.MONGO_URL)
+  private readonly mongoConnection = new MongoConnection(process.env.MONGO_URL, process.env.MONGO_DB_NAME, 'root', 'developer')
 
   public async load() {
     await this.mongoConnection.connect()
@@ -40,6 +45,7 @@ class Container {
 
   public async stop() {
     await this.mongoConnection.close()
+    await closeFirebase()
   }
 }
 

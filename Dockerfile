@@ -12,7 +12,7 @@ COPY . .
 # Build dist
 RUN npm run build
 
-# Expose port 3000
-EXPOSE 3000
+# Expose port
+EXPOSE 3001
 
 CMD npm run start

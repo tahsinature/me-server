@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000/"
+      "url": "http://localhost:3001/"
     }
   ],
   "tags": [
@@ -23,9 +23,7 @@
   "paths": {
     "/book/add": {
       "post": {
-        "tags": [
-          "book"
-        ],
+        "tags": ["book"],
         "summary": "Add a book to the database",
         "operationId": "book-add",
         "requestBody": {
@@ -58,9 +56,7 @@
     },
     "/book/all": {
       "get": {
-        "tags": [
-          "book"
-        ],
+        "tags": ["book"],
         "summary": "Get all books in database",
         "operationId": "book-get-all",
         "responses": {
@@ -89,9 +85,7 @@
     },
     "/book/search": {
       "get": {
-        "tags": [
-          "book"
-        ],
+        "tags": ["book"],
         "summary": "Search books by name or author",
         "operationId": "book-search",
         "parameters": [
@@ -137,7 +131,8 @@
           }
         }
       }
-    }
+    },
+    "/chat/msgToAdmin": {}
   },
   "components": {
     "schemas": {

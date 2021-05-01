@@ -65,6 +65,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.default
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -127,3 +128,5 @@ dist
 data
 
 .idea
+
+firebaseServiceAccountKey.json
