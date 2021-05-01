@@ -17,6 +17,8 @@ const seed = require(`../${workDir}/seeders`)
 const container = new Container()
 
 container.load().then(async () => {
-  await seed()
+  await seed().then(d => {
+    console.log('seed completed')
+  })
   await container.stop()
 })
