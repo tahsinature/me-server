@@ -7,7 +7,7 @@ cleanup() {
     exit $err
 }
 
-trap cleanup SIGINT EXIT
+#trap cleanup SIGINT EXIT
 
 # Make sure docker-compose is installed
 if ! hash docker-compose 2>/dev/null; then
@@ -21,5 +21,3 @@ if [ -z "$(docker network ls -qf name=^entropic$)" ]; then
 fi
 
 COMPOSE_HTTP_TIMEOUT=120 docker-compose -f  docker-compose.dev.yml up -d --force-recreate
-
-NODE_ENV=development nodemon
