@@ -1,5 +1,6 @@
-import Container from '../../src/container'
+import mongoose from 'mongoose'
 import request from 'supertest'
+import Container from '@src/container'
 import errCodes from '../../src/errors/error-codes'
 import { seeders } from '../../src/seeders'
 import { repositories } from '../../src/repositories'
@@ -21,5 +22,11 @@ export class TestPack {
 
   async stopContainer() {
     await this.container.stop()
+  }
+
+  utility = {
+    stringifyDbDoc(doc: mongoose.Document) {
+      return JSON.parse(JSON.stringify(doc.toJSON()))
+    },
   }
 }

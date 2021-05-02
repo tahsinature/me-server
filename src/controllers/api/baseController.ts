@@ -2,6 +2,8 @@ import BadRequest from '@src/errors/bad-request'
 import errCodes from '@src/errors/error-codes'
 import { Request, RequestHandler } from 'express'
 import Joi from 'joi'
+import mongoose from 'mongoose'
+import { services } from '@src/services'
 
 interface IRequestValidationSchema {
   body?: Joi.Schema
@@ -10,9 +12,10 @@ interface IRequestValidationSchema {
 }
 
 export abstract class BaseController {
-  requestValidationSchema: IRequestValidationSchema
+  public requestValidationSchema: IRequestValidationSchema
+  public services = services
 
-  validateRequest = async (req: Request) => {
+  async validateRequest(req: Request) {
     const { query, body, headers } = req
 
     if (this.requestValidationSchema.query)
@@ -29,6 +32,11 @@ export abstract class BaseController {
       await this.requestValidationSchema.header.validateAsync(headers, { allowUnknown: true }).catch(error => {
         throw new BadRequest({ message: error.message, flag: errCodes.INVALID_HEADER })
       })
+  }
+
+  async checkIfUrlParamIsObjectId(param: string) {
+    const isValid = mongoose.isValidObjectId(param)
+    if (!isValid) throw new BadRequest({ flag: errCodes.INVALID_URL_PARAM, message: 'url param is not valid object id' })
   }
 
   requestHandler: RequestHandler
