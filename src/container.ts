@@ -15,6 +15,7 @@ import cors from 'cors'
 import router from '@src/router'
 import ApplicationError from '@src/errors/application-error'
 import MongoConnection from '@src/mongo-connection'
+import { seed } from '@src/seeders'
 
 const app = express()
 app.use(morgan('dev'))
@@ -39,6 +40,7 @@ app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
 class Container {
   public readonly app = app
   private readonly mongoConnection = new MongoConnection()
+  public seed = seed
 
   public async load() {
     await this.mongoConnection.connect()
