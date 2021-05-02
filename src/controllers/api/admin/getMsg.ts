@@ -1,7 +1,7 @@
 import { BaseController } from '@src/controllers/api/baseController'
 import { Request, Response } from 'express'
 import Joi from 'joi'
-import Message from '@src/repositories/Message'
+import Message from '@src/repositories/message'
 
 class Controller extends BaseController {
   requestValidationSchema = {

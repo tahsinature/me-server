@@ -1,12 +1,19 @@
-import AppData from '@root/src/seeders/AppData'
-import Connection from '@src/seeders/Connection'
-import Message from '@src/seeders/Message'
-import Markdown from '@src/seeders/Markdown'
+import appData from '@src/seeders/appData'
+import connection from '@src/seeders/connection'
+import message from '@src/seeders/message'
+import markdown from '@src/seeders/markdown'
 
-export = async () => {
-  // const connections = await Connection.seed(['::ffff:127.0.0.1'])
-  // await AppData.createOne()
-  // await Message.seed(connections, 10)
-
-  await Markdown.createMany(10)
+export const seeders = {
+  appData,
+  connection,
+  message,
+  markdown,
 }
+
+// export = async () => {
+//   // const connections = await connection.seed(['::ffff:127.0.0.1'])
+//   // await AppData.createOne()
+//   // await Message.seed(connections, 10)
+//
+//   await seeders.markdown.createMany(10)
+// }

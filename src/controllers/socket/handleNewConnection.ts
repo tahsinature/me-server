@@ -1,4 +1,4 @@
-import Connection from '@src/repositories/Connection'
+import Connection from '@src/repositories/connection'
 
 export default async (options: { socketId: string; meta: any; ip: string }) => {
   const connection = await Connection.findOrCreateConnection({

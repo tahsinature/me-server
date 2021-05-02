@@ -1,4 +1,4 @@
-import Connection from '@src/repositories/Connection'
+import Connection from '@src/repositories/connection'
 import { IConnectionDoc } from '@src/models/Connection'
 
 export default async (connection: IConnectionDoc) => {

@@ -1,4 +1,4 @@
-import { BaseRepository } from '@src/repositories/BaseRepository'
+import { BaseRepository } from '@src/repositories/baseRepository'
 import Message, { IMessage } from '@src/models/Message'
 
 class Repository extends BaseRepository {

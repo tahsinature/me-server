@@ -1,7 +1,7 @@
 import { BaseController } from '@src/controllers/api/baseController'
 import { Request, Response } from 'express'
 import Joi from 'joi'
-import Markdown from '@src/repositories/Markdown'
+import Markdown from '@src/repositories/markdown'
 
 class Controller extends BaseController {
   requestValidationSchema = {}

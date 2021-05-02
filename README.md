@@ -136,7 +136,7 @@ The application uses [winston](https://github.com/winstonjs/winston) as the defa
 |   +-- middleware
 |   |   +-- request-middleware.ts
 |   +-- models
-|   |   +-- Book.ts
+|   |   +-- book.ts
 |   +-- app.ts
 |   +-- mongo-connection.ts
 |   +-- router.ts

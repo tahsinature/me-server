@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import Connection from '@src/repositories/Connection'
+import Connection from '@src/repositories/connection'
 import BadRequest from '../errors/bad-request'
 import errCodes from '../errors/error-codes'
 

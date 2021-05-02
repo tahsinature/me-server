@@ -1,4 +1,4 @@
-import Connection from '@src/repositories/Connection'
+import Connection from '@src/repositories/connection'
 import connectionRoles from '@src/constants/connectionRoles'
 import { NextFunction, Request, Response } from 'express'
 

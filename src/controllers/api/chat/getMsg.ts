@@ -1,9 +1,9 @@
 import { BaseController } from '@src/controllers/api/baseController'
 import { Request, Response } from 'express'
 import Joi from 'joi'
-import Connection from '@src/repositories/Connection'
+import Connection from '@src/repositories/connection'
 import BadRequest from '@src/errors/bad-request'
-import Message from '@root/src/repositories/Message'
+import Message from '@src/repositories/message'
 import errCodes from '@root/src/errors/error-codes'
 
 class Controller extends BaseController {

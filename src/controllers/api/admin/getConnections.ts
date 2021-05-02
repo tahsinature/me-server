@@ -1,8 +1,8 @@
 import { BaseController } from '@src/controllers/api/baseController'
 import { Request, Response } from 'express'
 import Joi from 'joi'
-import AppData from '@root/src/repositories/AppData'
-import Connection from '@src/repositories/Connection'
+import AppData from '@src/repositories/appData'
+import Connection from '@src/repositories/connection'
 import connectionRoles from '@src/constants/connectionRoles'
 
 class Controller extends BaseController {

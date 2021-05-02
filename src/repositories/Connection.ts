@@ -1,4 +1,4 @@
-import { BaseRepository } from '@src/repositories/BaseRepository'
+import { BaseRepository } from '@src/repositories/baseRepository'
 import Connection, { IConnection, IConnectionDoc } from '@src/models/Connection'
 
 class Repository extends BaseRepository {
