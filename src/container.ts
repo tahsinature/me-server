@@ -45,7 +45,7 @@ class Container {
 
   public async stop() {
     await this.mongoConnection.close()
-    await closeFirebase()
+    // await closeFirebase()
   }
 }
 
