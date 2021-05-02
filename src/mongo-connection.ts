@@ -7,18 +7,12 @@ export default class MongoConnection {
   private isConnectedBefore: boolean = false
 
   private readonly mongoConnectionOptions: ConnectionOptions = {
-    dbName: process.env.MONGO_DB_NAME,
-    pass: process.env.MONGO_DB_PASS,
-    user: process.env.MONGO_DB_USER,
     useNewUrlParser: true,
-    useCreateIndex: true,
     useUnifiedTopology: true,
   }
 
-  constructor(mongoUrl: string, dbName: string, user: string, pass: string) {
-    if (!mongoUrl || !dbName) throw new Error(`mongoUrl & dbname both required`)
+  constructor() {
     mongoose.set('debug', process.env.NODE_ENV === 'development')
-    if (process.env.NODE_ENV === 'test') this.mongoConnectionOptions.dbName = this.mongoConnectionOptions.dbName + '_test'
 
     mongoose.connection.on('error', this.onError)
     mongoose.connection.on('disconnected', this.onDisconnected)

@@ -4,9 +4,10 @@ const fs = require('fs')
 const path = require('path')
 const project = path.join(process.cwd(), 'tsconfig.json')
 const dev = fs.existsSync(project)
+const build = fs.existsSync(path.join(__dirname, '..', 'dist'))
 let workDir = 'dist'
 
-if (dev) {
+if (!build) {
   require('ts-node').register({ project, compiler: 'ttypescript' })
   workDir = 'src'
 }

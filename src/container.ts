@@ -37,7 +37,7 @@ app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
 
 class Container {
   public readonly app = app
-  private readonly mongoConnection = new MongoConnection(process.env.MONGO_URL, process.env.MONGO_DB_NAME, 'root', 'developer')
+  private readonly mongoConnection = new MongoConnection()
 
   public async load() {
     await this.mongoConnection.connect()
