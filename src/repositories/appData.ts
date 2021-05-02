@@ -1,5 +1,5 @@
+import { BaseRepository } from './baseRepository'
 import AppData from '@root/src/models/AppData'
-import { BaseRepository } from '@root/src/repositories/baseRepository'
 
 class Repository extends BaseRepository {
   model = AppData

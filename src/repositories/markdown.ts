@@ -1,4 +1,4 @@
-import { BaseRepository } from '@src/repositories/baseRepository'
+import { BaseRepository } from './baseRepository'
 import Markdown from '@src/models/Markdown'
 
 class Repository extends BaseRepository {
