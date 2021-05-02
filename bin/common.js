@@ -12,7 +12,7 @@ console.log(`environment: ${process.env.NODE_ENV}`)
 module.exports.getWorkDir = () => {
   const fs = require('fs')
   const path = require('path')
-  const project = path.join(process.cwd(), 'tsconfig.json')
+  const project = path.join(__dirname, '..', 'tsconfig.json')
   const build = fs.existsSync(path.join(__dirname, '..', 'dist'))
   let workDir = 'dist'
 
