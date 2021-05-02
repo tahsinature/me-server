@@ -19,7 +19,7 @@
   ],
   "author": "Tahsin @tahsinature",
   "scripts": {
-    "postinstall": "chmod +x scripts/environment.sh ./bin/run",
+    "postinstall": "chmod +x scripts/environment.sh ./bin/run ./bin/seed-db",
     "build": "rm -rf dist && ttsc",
     "lint": "prettier --write ./src/**/*",
     "dev": "NODE_ENV=development nodemon",

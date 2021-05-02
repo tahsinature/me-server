@@ -13,10 +13,10 @@ module.exports.getWorkDir = () => {
   const fs = require('fs')
   const path = require('path')
   const project = path.join(__dirname, '..', 'tsconfig.json')
-  const build = fs.existsSync(path.join(__dirname, '..', 'dist'))
+  const isDistDirExists = fs.existsSync(path.join(__dirname, '..', 'dist'))
   let workDir = 'dist'
 
-  if (!build) {
+  if (!isDistDirExists) {
     require('ts-node').register({ project, compiler: 'ttypescript' })
     workDir = 'src'
     console.log('running typescript from src')
