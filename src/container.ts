@@ -1,16 +1,17 @@
+import logger from '@root/src/logger'
 import dotenv from 'dotenv'
-const result = dotenv.config()
-if (result.error) dotenv.config({ path: '.env.default' })
+const result = dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
+if (result.error) console.error(result.error.message)
+
 import express, { Request, Response, NextFunction } from 'express'
 import 'express-async-errors'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import path from 'path'
 import errCodes from '@root/src/errors/error-codes'
-import logger from '@root/src/logger'
 import morgan from 'morgan'
 import cors from 'cors'
-import { closeFirebase } from '@src/firebase'
+// import { closeFirebase } from '@src/firebase'
 import router from '@src/router'
 import ApplicationError from '@src/errors/application-error'
 import MongoConnection from '@src/mongo-connection'

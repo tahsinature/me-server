@@ -7,6 +7,7 @@ import { models } from '../../src/models'
 
 export class TestPack {
   private container = new Container()
+  public app = this.container.app
   public errCodes = errCodes
   public flags = errCodes
   public request = request

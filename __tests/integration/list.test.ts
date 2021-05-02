@@ -1,39 +1,20 @@
-import Container from '../../src/container'
-import request from 'supertest'
-import errCodes from '../../src/errors/error-codes'
-import { request as expressRequest } from 'express'
-import Connection from '../../src/seeders/connection'
-import Message from '../../src/seeders/message'
+import { TestPack } from '../utility/testPack'
 
-const container = new Container()
+const tp = new TestPack()
 
-beforeAll(async () => await container.load())
-afterAll(async () => await container.stop())
+beforeAll(async () => await tp.loadContainer())
+afterAll(async () => await tp.stopContainer())
 
-const url = '/msg'
+const url = '/visitor/list'
 
 describe('Foo', () => {
   it('should get SOCKET_CONNECTION_NOT_FOUND err', async () => {
-    const res = await request(container.app).get(url)
+    // const res = await request(container.app).get(url)
+    const res = await tp.request(tp.app).get(url)
 
-    expect(res.status).toBe(400)
-    expect(res.body.flag).toBe(errCodes.SOCKET_CONNECTION_NOT_FOUND)
-  })
+    console.log(res.body)
 
-  it('foo', async () => {
-    const connection = await Connection.createOne('0.0.0.0')
-    const msgs = await Message.seed([connection], 5)
-
-    jest.spyOn(expressRequest, 'ip', 'get').mockReturnValue(connection.ip)
-    const res = await request(container.app).get(url)
-
-    expect(res.status).toBe(200)
-    expect(res.body).toMatchObject(
-      msgs.map(ele => ({
-        type: ele.type,
-        text: ele.content,
-        date: ele.toJSON().createdAt.toString(),
-      })),
-    )
+    // expect(res.status).toBe(400)
+    // expect(res.body.flag).toBe(errCodes.SOCKET_CONNECTION_NOT_FOUND)
   })
 })

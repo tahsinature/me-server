@@ -1,16 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require('fs')
-const path = require('path')
-const project = path.join(process.cwd(), 'tsconfig.json')
-const dev = fs.existsSync(project)
-const build = fs.existsSync(path.join(__dirname, '..', 'dist'))
-let workDir = 'dist'
-
-if (!build) {
-  require('ts-node').register({ project, compiler: 'ttypescript' })
-  workDir = 'src'
-}
+const { getWorkDir } = require('./common')
+const workDir = getWorkDir()
 
 const Container = require(`../${workDir}/container`)
 const Server = require(`../${workDir}/server`)
