@@ -5,12 +5,12 @@ const tp = new TestPack()
 beforeAll(async () => await tp.loadContainer())
 afterAll(async () => await tp.stopContainer())
 
-const url = '/visitor/list'
+const getURL = (id: string) => `/visitor/md/${id}`
 
-describe('Foo', () => {
-  it('should get SOCKET_CONNECTION_NOT_FOUND err', async () => {
+describe('get markdown api', () => {
+  it('test list first test', async () => {
     // const res = await request(container.app).get(url)
-    const res = await tp.request(tp.app).get(url)
+    const res = await tp.request(tp.app).get(getURL('foo'))
 
     console.log(res.body)
 

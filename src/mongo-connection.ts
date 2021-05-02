@@ -9,6 +9,7 @@ export default class MongoConnection {
   private readonly mongoConnectionOptions: ConnectionOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   }
 
   constructor() {
@@ -22,15 +23,12 @@ export default class MongoConnection {
 
   public async close() {
     logger.log({ level: 'info', message: 'Closing the MongoDB connection' })
-    await mongoose.connection.close(error => {
-      if (error) logger.log({ level: 'error', message: 'Error shutting closing mongo connection', error })
-      process.exit(0)
-    })
+    await mongoose.connection.close()
   }
 
   public async connect() {
     logger.log({ level: 'info', message: `Connecting to MongoDB at ${this.mongoUrl}` })
-    await mongoose.connect(this.mongoUrl, this.mongoConnectionOptions).catch(() => {})
+    await mongoose.connect(this.mongoUrl, this.mongoConnectionOptions)
   }
 
   private onConnected = () => {

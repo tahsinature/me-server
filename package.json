@@ -1,7 +1,7 @@
 {
   "name": "future-proof-nodejs",
   "version": "1.0.0",
-  "description": "A minimalist TypeScript-Express boilerplate",
+  "description": "Server for my https://tahsinature.me",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tahsinature/future-proof-nodejs.git"
@@ -20,11 +20,11 @@
   "author": "Tahsin @tahsinature",
   "scripts": {
     "postinstall": "chmod +x scripts/environment.sh ./bin/run ./bin/seed-db",
+    "environment": "scripts/environment.sh",
     "build": "rm -rf dist && ttsc",
     "lint": "prettier --write ./src/**/*",
-    "dev": "NODE_ENV=development nodemon",
-    "environment": "scripts/environment.sh",
     "start": "./bin/run",
+    "dev": "nodemon",
     "seed-db": "./bin/seed-db",
     "test": "jest"
   },
