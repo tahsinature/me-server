@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import request from 'supertest'
 import Container from '@src/container'
-import errCodes from '../../src/errors/error-codes'
+import flags from '../../src/errors/flags'
 import { seeders } from '../../src/seeders'
 import { repositories } from '../../src/repositories'
 import { models } from '../../src/models'
@@ -9,8 +9,8 @@ import { models } from '../../src/models'
 export class TestPack {
   private container = new Container()
   public app = this.container.app
-  public errCodes = errCodes
-  public flags = errCodes
+  public errCodes = flags
+  public flags = flags
   public request = request
   public seeders = seeders
   public repositories = repositories

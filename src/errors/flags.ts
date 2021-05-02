@@ -1,4 +1,4 @@
-const errCodes = {
+const flags = {
   INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR',
   INVALID_BODY: 'INVALID_BODY',
   INVALID_QUERY_PARAM: 'INVALID_QUERY_PARAM',
@@ -8,4 +8,4 @@ const errCodes = {
   INVALID_FCM_TOKEN: 'INVALID_FCM_TOKEN',
 }
 
-export default errCodes
+export default flags

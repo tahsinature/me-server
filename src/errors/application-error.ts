@@ -1,4 +1,4 @@
-import errCodes from '@root/src/errors/error-codes'
+import flags from '@src/errors/flags'
 import { IApplicationErrorOption } from '@root/src/interfaces/IMixed'
 
 export default class ApplicationError extends Error {

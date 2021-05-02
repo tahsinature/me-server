@@ -4,7 +4,7 @@ import Joi from 'joi'
 import Connection from '@src/repositories/connection'
 import BadRequest from '@src/errors/bad-request'
 import Message from '@src/repositories/message'
-import errCodes from '@root/src/errors/error-codes'
+import flags from '@src/errors/flags'
 
 class Controller extends BaseController {
   requestValidationSchema = {
@@ -17,7 +17,7 @@ class Controller extends BaseController {
     await this.validateRequest(req)
 
     const connection = await Connection.justFindByIp(req.ip)
-    if (!connection) throw new BadRequest({ message: "can't get msg before initializing socket connection", flag: errCodes.SOCKET_CONNECTION_NOT_FOUND })
+    if (!connection) throw new BadRequest({ message: "can't get msg before initializing socket connection", flag: flags.SOCKET_CONNECTION_NOT_FOUND })
 
     const msgs = await Message.getAll(connection._id)
 

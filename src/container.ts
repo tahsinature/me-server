@@ -8,7 +8,7 @@ import 'express-async-errors'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import path from 'path'
-import errCodes from '@root/src/errors/error-codes'
+import flags from '@src/errors/flags'
 import morgan from 'morgan'
 import cors from 'cors'
 // import { closeFirebase } from '@src/firebase'
@@ -31,7 +31,7 @@ app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
 
   if (err instanceof ApplicationError) res.status(err.status).json(err)
   else {
-    res.status(500).json(new ApplicationError({ flag: errCodes.INTERNAL_SERVER_ERROR, httpCode: 500 }))
+    res.status(500).json(new ApplicationError({ flag: flags.INTERNAL_SERVER_ERROR, httpCode: 500 }))
     logger.log({ level: 'error', message: 'Error in request handler', error: err })
   }
 })

@@ -1,5 +1,5 @@
 import BadRequest from '@src/errors/bad-request'
-import errCodes from '@src/errors/error-codes'
+import flags from '@src/errors/flags'
 import { Request, RequestHandler } from 'express'
 import Joi from 'joi'
 import mongoose from 'mongoose'
@@ -20,23 +20,23 @@ export abstract class BaseController {
 
     if (this.requestValidationSchema.query)
       await this.requestValidationSchema.query.validateAsync(query).catch(error => {
-        throw new BadRequest({ message: error.message, flag: errCodes.INVALID_QUERY_PARAM })
+        throw new BadRequest({ message: error.message, flag: flags.INVALID_QUERY_PARAM })
       })
 
     if (this.requestValidationSchema.body)
       await this.requestValidationSchema.body.validateAsync(body).catch(error => {
-        throw new BadRequest({ message: error.message, flag: errCodes.INVALID_BODY })
+        throw new BadRequest({ message: error.message, flag: flags.INVALID_BODY })
       })
 
     if (this.requestValidationSchema.header)
       await this.requestValidationSchema.header.validateAsync(headers, { allowUnknown: true }).catch(error => {
-        throw new BadRequest({ message: error.message, flag: errCodes.INVALID_HEADER })
+        throw new BadRequest({ message: error.message, flag: flags.INVALID_HEADER })
       })
   }
 
   async checkIfUrlParamIsObjectId(param: string) {
     const isValid = mongoose.isValidObjectId(param)
-    if (!isValid) throw new BadRequest({ flag: errCodes.INVALID_URL_PARAM, message: 'url param is not valid object id' })
+    if (!isValid) throw new BadRequest({ flag: flags.INVALID_URL_PARAM, message: 'url param is not valid object id' })
   }
 
   requestHandler: RequestHandler

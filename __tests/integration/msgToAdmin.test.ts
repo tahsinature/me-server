@@ -1,9 +1,9 @@
 import Container from '../../src/container'
 import request from 'supertest'
-import errCodes from '../../src/errors/error-codes'
 import { request as expressRequest } from 'express'
 import Connection from '../../src/seeders/connection'
 import Message from '../../src/seeders/message'
+import flags from '../../src/errors/flags'
 
 const container = new Container()
 
@@ -17,7 +17,7 @@ describe('Foo', () => {
     const res = await request(container.app).get(url)
 
     expect(res.status).toBe(400)
-    expect(res.body.flag).toBe(errCodes.SOCKET_CONNECTION_NOT_FOUND)
+    expect(res.body.flag).toBe(flags.SOCKET_CONNECTION_NOT_FOUND)
   })
 
   it('foo', async () => {
