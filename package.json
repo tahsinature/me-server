@@ -26,7 +26,8 @@
     "start": "./bin/run",
     "dev": "nodemon",
     "seed-db": "./bin/seed-db",
-    "test": "jest"
+    "test": "jest",
+    "check-circular-dep": "npx madge --ts-config ./tsconfig.json --extensions js,ts --circular ."
   },
   "dependencies": {
     "body-parser": "1.19.0",
@@ -60,6 +61,7 @@
     "faker": "^5.1.0",
     "jest": "26.1.0",
     "jest-express": "1.12.0",
+    "madge": "^4.0.2",
     "mockingoose": "2.13.2",
     "prettier": "^2.2.0",
     "supertest": "4.0.2",
