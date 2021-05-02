@@ -1,8 +1,7 @@
-import { BaseRepository } from './baseRepository'
 import Connection, { IConnection, IConnectionDoc } from '@src/models/Connection'
 
-class Repository extends BaseRepository {
-  model = Connection
+class Repository {
+  private model = Connection
 
   async justFindByIp(ip: string) {
     return this.model.findOne({ ip })

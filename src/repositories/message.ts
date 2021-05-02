@@ -1,8 +1,7 @@
-import { BaseRepository } from './baseRepository'
 import Message, { IMessage } from '@src/models/Message'
 
-class Repository extends BaseRepository {
-  model = Message
+class Repository {
+  private model = Message
 
   createNew(data: IMessage) {
     return Message.create(data)

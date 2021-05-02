@@ -1,8 +1,7 @@
-import { BaseRepository } from './baseRepository'
 import Markdown from '@src/models/Markdown'
 
-class Repository extends BaseRepository {
-  model = Markdown
+class Repository {
+  private model = Markdown
 
   getAll() {
     return this.model.find()

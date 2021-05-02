@@ -1,8 +1,7 @@
-import { BaseRepository } from './baseRepository'
 import AppData from '@root/src/models/AppData'
 
-class Repository extends BaseRepository {
-  model = AppData
+class Repository {
+  private model = AppData
 
   async get() {
     return this.model.findOne()
