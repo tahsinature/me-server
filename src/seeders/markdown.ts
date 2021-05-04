@@ -16,14 +16,17 @@ class Seeder {
 
   public createOne({
     title = faker.lorem.words(5),
+    display = false,
     content = `######test content\n${faker.lorem.sentences(10)}`,
     description = faker.lorem.sentences(3),
   }: {
     title?: string
+    display?: boolean
     content?: string
     description?: string
   }) {
     return Markdown.create({
+      display,
       content,
       title,
       description,
