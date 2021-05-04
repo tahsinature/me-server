@@ -13,6 +13,7 @@ import getSocketConnections from '@src/controllers/api/dev/getSocketConnections'
 import removeAllSocketConnections from '@src/controllers/api/dev/removeAllSocketConnections'
 import msgToVisitor from '@src/controllers/api/admin/msgToVisitor'
 import getMarkdown from '@src/controllers/api/visitor/getMarkdown'
+import getList from '@src/controllers/api/visitor/getList'
 const apiSpec = require('@root/openapi.json')
 
 const swaggerUiOptions: SwaggerUiOptions = { customCss: '.swagger-ui .topbar { display: none }' }
@@ -33,6 +34,7 @@ const visitorRoutes = Router()
 visitorRoutes.get('/msg', getMsg.requestHandler)
 visitorRoutes.post('/msg-to-admin', msgToAdmin.requestHandler)
 visitorRoutes.get('/data', sendBasicData.requestHandler)
+visitorRoutes.get('/list/:type', getList.requestHandler)
 visitorRoutes.get('/md/:id', getMarkdown.requestHandler)
 
 const adminRoutes = Router()
