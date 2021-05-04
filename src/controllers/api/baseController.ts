@@ -8,6 +8,7 @@ import { services } from '@src/services'
 interface IRequestValidationSchema {
   body?: Joi.Schema
   query?: Joi.Schema
+  params?: Joi.Schema
   header?: Joi.Schema
 }
 
@@ -16,7 +17,7 @@ export abstract class BaseController {
   public services = services
 
   async validateRequest(req: Request) {
-    const { query, body, headers } = req
+    const { query, body, headers, params } = req
 
     if (this.requestValidationSchema.query)
       await this.requestValidationSchema.query.validateAsync(query).catch(error => {
@@ -31,6 +32,11 @@ export abstract class BaseController {
     if (this.requestValidationSchema.header)
       await this.requestValidationSchema.header.validateAsync(headers, { allowUnknown: true }).catch(error => {
         throw new BadRequest({ message: error.message, flag: flags.INVALID_HEADER })
+      })
+
+    if (this.requestValidationSchema.params)
+      await this.requestValidationSchema.params.validateAsync(params, { allowUnknown: true }).catch(error => {
+        throw new BadRequest({ message: error.message, flag: flags.INVALID_URL_PARAM })
       })
   }
 
