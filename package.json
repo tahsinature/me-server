@@ -24,10 +24,11 @@
     "build": "rm -rf dist && ttsc",
     "lint": "prettier --write ./src/**/*",
     "start": "./bin/run",
-    "dev": "nodemon",
     "seed-db": "./bin/seed-db",
     "test": "jest",
-    "check-circular-dep": "npx madge --ts-config ./tsconfig.json --extensions js,ts --circular ."
+    "check-circular-dep": "npx madge --ts-config ./tsconfig.json --extensions js,ts --circular .",
+    "dev": "nodemon",
+    "prod": "NODE_ENV=production npm start"
   },
   "dependencies": {
     "body-parser": "1.19.0",
