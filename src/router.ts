@@ -14,11 +14,16 @@ import removeAllSocketConnections from '@src/controllers/api/dev/removeAllSocket
 import msgToVisitor from '@src/controllers/api/admin/msgToVisitor'
 import getMarkdown from '@src/controllers/api/visitor/getMarkdown'
 import getList from '@src/controllers/api/visitor/getList'
+import sendResponse from '@src/utilities/sendResponse'
 const apiSpec = require('@root/openapi.json')
 
 const swaggerUiOptions: SwaggerUiOptions = { customCss: '.swagger-ui .topbar { display: none }' }
 
 const router = Router()
+
+router.get('/health', (req, res) => {
+  sendResponse(req, res, { data: { status: 'OK' } })
+})
 
 // Book router
 router.post('/book/add', bookControllers.add.requestHandler)
