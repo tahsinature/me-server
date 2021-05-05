@@ -1,9 +1,10 @@
 import BadRequest from '@src/errors/bad-request'
 import flags from '@src/errors/flags'
-import { Request, RequestHandler } from 'express'
+import { Request, Response, RequestHandler } from 'express'
 import Joi from 'joi'
 import mongoose from 'mongoose'
 import { services } from '@src/services'
+import sendResponse from '@src/utilities/sendResponse'
 
 interface IRequestValidationSchema {
   body?: Joi.Schema
@@ -44,6 +45,8 @@ export abstract class BaseController {
     const isValid = mongoose.isValidObjectId(param)
     if (!isValid) throw new BadRequest({ flag: flags.INVALID_URL_PARAM, message: 'url param is not valid object id' })
   }
+
+  sendResponse = sendResponse
 
   requestHandler: RequestHandler
 }

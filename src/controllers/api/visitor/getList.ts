@@ -15,7 +15,7 @@ class Controller extends BaseController {
 
     const data = await this.services.list.getList(type)
 
-    res.status(200).json(data)
+    this.sendResponse(req, res, { data })
   }
 }
 
