@@ -44,7 +44,8 @@
     "nodemon": "2.0.4",
     "socket.io": "^2.4.1",
     "swagger-ui-express": "4.1.4",
-    "winston": "3.3.2"
+    "winston": "3.3.2",
+    "faker": "^5.1.0"
   },
   "devDependencies": {
     "@types/compression": "1.7.0",
@@ -59,7 +60,6 @@
     "@types/supertest": "2.0.9",
     "@types/swagger-ui-express": "4.1.2",
     "@zerollup/ts-transform-paths": "^1.7.18",
-    "faker": "^5.1.0",
     "jest": "26.1.0",
     "jest-express": "1.12.0",
     "madge": "^4.0.2",
