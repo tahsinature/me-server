@@ -3,6 +3,7 @@ import Book from '@src/models/Book'
 import Connection from '@src/models/Connection'
 import Markdown from '@src/models/Markdown'
 import Message from '@src/models/Message'
+import Tool from '@src/models/Tool'
 
 export const models = {
   AppData,
@@ -10,4 +11,5 @@ export const models = {
   Connection,
   Markdown,
   Message,
+  Tool,
 }
