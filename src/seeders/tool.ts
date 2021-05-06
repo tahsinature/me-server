@@ -38,8 +38,6 @@ class Seeder {
   }
 
   public async createStatic() {
-    console.log(data.tools[0])
-
     const all = await Tool.insertMany(data.tools)
     return all
   }

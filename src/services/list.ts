@@ -155,7 +155,7 @@ class Service {
         title: 'My Writings',
         list: data.map(ele => ({
           _id: ele._id,
-          image: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          image: 'https://icon-library.com/images/article-icon-png/article-icon-png-15.jpg',
           title: ele.title,
           description: ele.description,
         })),
