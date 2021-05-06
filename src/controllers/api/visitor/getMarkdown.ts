@@ -11,7 +11,7 @@ class Controller extends BaseController {
 
     const data = await this.services.markdown.getSingleMarkdown(id)
 
-    this.sendResponse(req, res)
+    this.sendResponse(req, res, { data })
   }
 }
 
