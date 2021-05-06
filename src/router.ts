@@ -38,7 +38,7 @@ const visitorRoutes = Router()
 // visitorRoutes.use(migrateConnection.toVisitor)
 visitorRoutes.get('/msg', getMsg.requestHandler)
 visitorRoutes.post('/msg-to-admin', msgToAdmin.requestHandler)
-visitorRoutes.get('/data', sendBasicData.requestHandler)
+visitorRoutes.get('/basic-data', sendBasicData.requestHandler)
 visitorRoutes.get('/list/:type', getList.requestHandler)
 visitorRoutes.get('/md/:id', getMarkdown.requestHandler)
 

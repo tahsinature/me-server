@@ -10,6 +10,10 @@ class Repository {
   getById(id: string) {
     return this.model.findById(id)
   }
+
+  getDisplay() {
+    return this.model.find({ display: true })
+  }
 }
 
 export default new Repository()
