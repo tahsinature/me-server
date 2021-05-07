@@ -7,8 +7,6 @@ const apiSpec = require('@root/openapi.json')
 const swaggerUiOptions: SwaggerUiOptions = { customCss: '.swagger-ui .topbar { display: none }' }
 const router = Router()
 
-router.use(middlewares.logRequest)
-
 router.use('/api-docs', swaggerUi.serve)
 router.get('/api-docs', swaggerUi.setup(apiSpec, swaggerUiOptions))
 
@@ -21,6 +19,7 @@ bookRouts.get('/all', controllers.api.book.getAllBooks.requestHandler)
 bookRouts.get('/search', controllers.api.book.searchBook.requestHandler)
 
 const visitorRoutes = Router()
+visitorRoutes.use(middlewares.logRequest)
 // visitorRoutes.use(middlewares.socketCheck)
 // visitorRoutes.use(middlewares.migrateConnection.toVisitor)
 visitorRoutes.get('/msg', controllers.api.chat.getChatMsg.requestHandler)

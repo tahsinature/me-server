@@ -4,7 +4,7 @@ import { services } from '@root/src/services'
 export default async (req: Request, res: Response, next: NextFunction) => {
   const { ip, url, hostname } = req
 
-  await services.connection.saveRequest({ ip, url })
+  await services.connection.saveRequest({ ip: (req.headers['x-forwarded-for'] as string) || req.connection.remoteAddress, url })
 
   next()
 }
