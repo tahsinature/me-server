@@ -1,3 +1,4 @@
+import request from '@root/src/repositories/request'
 import appData from '@src/repositories/appData'
 import connection from '@src/repositories/connection'
 import markdown from '@src/repositories/markdown'
@@ -9,5 +10,6 @@ export const repositories = {
   connection,
   markdown,
   message,
+  request,
   tool,
 }
