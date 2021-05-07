@@ -1,5 +1,4 @@
 import { Document, Schema, model } from 'mongoose'
-import connectionRoles from '@src/constants/connectionRoles'
 
 export interface IRequest {
   ip: string
@@ -16,7 +15,7 @@ const schema = new Schema(
   {
     ip: { type: String, required: true },
     url: { type: String, required: true },
-    lookUpData: { type: Object },
+    lookUpData: { type: Schema.Types.Mixed },
   },
   { timestamps: true },
 )

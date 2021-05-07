@@ -1,14 +1,20 @@
-import { services } from '@root/src/services'
 import { repositories } from '@src/repositories'
 import axios from 'axios'
+import _ from 'lodash'
+import { isIP } from 'net'
 
 class Service {
   async saveRequest(options: { ip: string; url: string }) {
-    const { data } = await axios.get(`https://ipapi.co/${options.ip}/json`)
+    let lookUpData = null
+    options.ip = _.last(options.ip.split(':'))
 
-    await repositories.request.createNew({ ip: options.ip, url: options.url, lookUpData: data })
+    const isValidIPv4 = isIP(options.ip) === 4
+    if (isValidIPv4) {
+      const { data } = await axios.get(`https://ipapi.co/${options.ip}/json`)
+      lookUpData = data
+    }
 
-    // console.log(data)
+    await repositories.request.createNew({ ip: options.ip, url: options.url, lookUpData })
   }
 }
 
