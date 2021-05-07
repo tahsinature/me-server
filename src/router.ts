@@ -7,6 +7,8 @@ const apiSpec = require('@root/openapi.json')
 const swaggerUiOptions: SwaggerUiOptions = { customCss: '.swagger-ui .topbar { display: none }' }
 const router = Router()
 
+router.use(middlewares.logRequest)
+
 router.use('/api-docs', swaggerUi.serve)
 router.get('/api-docs', swaggerUi.setup(apiSpec, swaggerUiOptions))
 
