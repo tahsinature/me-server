@@ -1,3 +1,4 @@
+import Request from '@root/src/models/Request'
 import AppData from '@src/models/AppData'
 import Book from '@src/models/Book'
 import Connection from '@src/models/Connection'
@@ -12,4 +13,5 @@ export const models = {
   Markdown,
   Message,
   Tool,
+  Request,
 }
