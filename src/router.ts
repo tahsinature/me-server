@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import swaggerUi, { SwaggerUiOptions } from 'swagger-ui-express'
-import sendResponse from '@src/utilities/sendResponse'
 import middlewares from '@root/src/middlewares'
 import controllers from '@root/src/controllers'
 
@@ -8,12 +7,11 @@ const apiSpec = require('@root/openapi.json')
 const swaggerUiOptions: SwaggerUiOptions = { customCss: '.swagger-ui .topbar { display: none }' }
 const router = Router()
 
-router.get('/health', (req, res) => {
-  sendResponse(req, res, { data: { status: 'OK' } })
-})
-
 router.use('/api-docs', swaggerUi.serve)
 router.get('/api-docs', swaggerUi.setup(apiSpec, swaggerUiOptions))
+
+const healthRoutes = Router()
+healthRoutes.get('/', controllers.api.health.getAppStatus.requestHandler)
 
 const bookRouts = Router()
 bookRouts.post('/add', controllers.api.book.addBook.requestHandler)
@@ -41,6 +39,7 @@ const devRoutes = Router()
 devRoutes.get('/socket/sids', controllers.api.dev.getSocketConnections.requestHandler)
 devRoutes.get('/socket/remove-all-connections', controllers.api.dev.removeAllSocketConnections.requestHandler)
 
+router.use('/health', healthRoutes)
 router.use('/admin', adminRoutes)
 router.use('/visitor', visitorRoutes)
 router.use('/dev', devRoutes)

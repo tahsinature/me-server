@@ -10,6 +10,7 @@ import msgToAdmin from '@root/src/controllers/api/chat/msgToAdmin'
 import sendBasicData from '@root/src/controllers/api/data/sendBasicData'
 import getSocketConnections from '@root/src/controllers/api/dev/getSocketConnections'
 import removeAllSocketConnections from '@root/src/controllers/api/dev/removeAllSocketConnections'
+import getAppStatus from '@root/src/controllers/api/health/getAppStatus'
 import getList from '@root/src/controllers/api/visitor/getList'
 import getMarkdown from '@root/src/controllers/api/visitor/getMarkdown'
 
@@ -35,6 +36,9 @@ const api = {
   dev: {
     getSocketConnections,
     removeAllSocketConnections,
+  },
+  health: {
+    getAppStatus,
   },
   visitor: {
     getList,
