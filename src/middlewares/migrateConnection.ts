@@ -20,7 +20,9 @@ const toVisitor = async (req: Request, res: Response, next: NextFunction) => {
   next()
 }
 
-export default {
+const migrateConnection = {
   toAdmin,
   toVisitor,
 }
+
+export default migrateConnection

@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import Joi from 'joi'
 import Book from '../../../models/Book'
 
-export default class extends BaseController {
+class Controller extends BaseController {
   requestValidationSchema = {
     body: Joi.object({
       name: Joi.string().required(),
@@ -27,3 +27,5 @@ export default class extends BaseController {
     })
   }
 }
+
+export default new Controller()
