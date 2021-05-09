@@ -14,12 +14,12 @@ import MongoConnection from '@src/mongo-connection'
 import { seed } from '@src/seeders'
 
 const app = express()
+app.use(cors())
 app.use(morgan('dev'))
 app.use(compression())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
-app.use(cors())
 
 app.use(router)
 
