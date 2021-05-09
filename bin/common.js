@@ -9,6 +9,10 @@ const envMap = {
 if (!envMap[process.env.NODE_ENV]) process.env.NODE_ENV = envMap.default
 console.log(`environment: ${process.env.NODE_ENV}`)
 
+const dotenv = require('dotenv')
+const result = dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
+if (result.error) console.error(result.error.message)
+
 module.exports.getWorkDir = () => {
   const fs = require('fs')
   const path = require('path')

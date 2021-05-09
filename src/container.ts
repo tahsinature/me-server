@@ -1,8 +1,4 @@
 import logger from '@root/src/logger'
-import dotenv from 'dotenv'
-const result = dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
-if (result.error) console.error(result.error.message)
-
 import express, { Request, Response, NextFunction } from 'express'
 import 'express-async-errors'
 import bodyParser from 'body-parser'
