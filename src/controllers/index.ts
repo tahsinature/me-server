@@ -1,5 +1,6 @@
 import getConnections from '@root/src/controllers/api/admin/getConnections'
 import getMsg from '@root/src/controllers/api/admin/getMsg'
+import getRequests from '@root/src/controllers/api/admin/getRequests'
 import init from '@root/src/controllers/api/admin/init'
 import msgToVisitor from '@root/src/controllers/api/admin/msgToVisitor'
 import addBook from '@root/src/controllers/api/book/addBook'
@@ -20,6 +21,7 @@ const api = {
     getMsg,
     init,
     msgToVisitor,
+    getRequests,
   },
   book: {
     addBook,

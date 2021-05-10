@@ -16,6 +16,16 @@ class Service {
 
     await repositories.request.createNew({ ip: options.ip, url: options.url, lookUpData })
   }
+
+  async getRequests(query: { ipexclude?: string; after?: string }) {
+    let excludeIps: string[] = []
+
+    if (query.ipexclude) excludeIps = query.ipexclude.split(',')
+
+    let data = repositories.request.query({ ips: excludeIps, after: query.after })
+
+    return data
+  }
 }
 
 export default new Service()

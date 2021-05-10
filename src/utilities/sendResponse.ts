@@ -13,7 +13,7 @@ const sendResponse = (
   req: Request,
   res: Response,
   option: {
-    data: any
+    data?: any
     flag?: string
     message?: string
     error?: Error
@@ -28,16 +28,18 @@ const sendResponse = (
   // do something with error.stack
 
   if (option.joiError) errMsgs.concat(option.joiError.details.map(ele => ele.message))
+  const status = option.status || 200
+  const message = option.message || status < 300 ? 'success' : 'error'
 
   const dataToSend: IDataToSend = {
     requestId: '1234', // later will  taken from request obj
     errors: errMsgs,
     data: option.data,
-    message: option.message || 'success',
+    message,
     flag: option.flag,
   }
 
-  res.status(option.status || 200).send(dataToSend)
+  res.status(status).send(dataToSend)
 }
 
 export default sendResponse
