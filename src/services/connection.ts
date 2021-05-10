@@ -17,12 +17,24 @@ class Service {
     await repositories.request.createNew({ ip: options.ip, url: options.url, lookUpData })
   }
 
-  async getRequests(query: { ipexclude?: string; after?: string }) {
+  async getRequests(query: { ipexclude?: string; after?: string; compact?: boolean }) {
     let excludeIps: string[] = []
 
     if (query.ipexclude) excludeIps = query.ipexclude.split(',')
 
-    let data = repositories.request.query({ ips: excludeIps, after: query.after })
+    let data = await repositories.request.query({ ips: excludeIps, after: query.after })
+
+    if (query.compact)
+      data = data.map(ele => {
+        const transformed = { ...ele.toJSON() }
+
+        if (ele.lookUpData) {
+          Object.assign(transformed, { country: ele.lookUpData.country_name, city: ele.lookUpData.city })
+        }
+        delete transformed.lookUpData
+
+        return transformed as any
+      })
 
     return data
   }

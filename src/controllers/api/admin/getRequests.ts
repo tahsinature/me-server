@@ -6,6 +6,7 @@ class Controller extends BaseController {
   requestValidationSchema = {
     query: Joi.object({
       after: Joi.string().isoDate(),
+      compact: Joi.boolean(),
       ipexclude: Joi.string().custom((ele: string) => {
         const all = ele.split(',')
         const isAllValidIp = all.every(ip => {
