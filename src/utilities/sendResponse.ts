@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import Joi from 'joi'
+import faker from 'faker'
 
 interface IDataToSend {
   requestId: string
@@ -32,7 +33,7 @@ const sendResponse = (
   const message = option.message || status < 300 ? 'success' : 'error'
 
   const dataToSend: IDataToSend = {
-    requestId: '1234', // later will  taken from request obj
+    requestId: (req.headers['request-id'] as string) || faker.random.uuid(),
     errors: errMsgs,
     data: option.data,
     message,
