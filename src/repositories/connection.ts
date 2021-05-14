@@ -1,3 +1,4 @@
+import socket from '@root/src/socket'
 import Connection, { IConnection, IConnectionDoc } from '@src/models/Connection'
 
 class Repository {
@@ -7,10 +8,19 @@ class Repository {
     return this.model.findOne({ ip })
   }
 
-  async findOrCreateConnection(data: IConnection) {
+  findOrCreateConnection = async (data: IConnection) => {
     let connection = await this.justFindByIp(data.ip)
     if (!connection) connection = await this.model.create(data)
     return connection
+  }
+
+  refreshSocketIds = async () => {
+    const connectSids = (await socket.getConnectedSockets()).map(ele => ele.id)
+    const connections = await Connection.find()
+
+    for (const connection of connections) {
+      if (!connectSids.includes(connection.socketId)) await this.removeSocket(connection)
+    }
   }
 
   async updateSocketId(connection: IConnectionDoc, socketId: string) {
