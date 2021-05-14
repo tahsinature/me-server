@@ -30,7 +30,7 @@ const sendResponse = (
 
   if (option.joiError) errMsgs.concat(option.joiError.details.map(ele => ele.message))
   const status = option.status || 200
-  const message = option.message || status < 300 ? 'success' : 'error'
+  const message = option.message || (status < 300 ? 'success' : 'error')
 
   const dataToSend: IDataToSend = {
     requestId: (req.headers['request-id'] as string) || faker.random.uuid(),
