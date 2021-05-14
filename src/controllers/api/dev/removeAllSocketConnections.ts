@@ -13,7 +13,7 @@ class Controller extends BaseController {
     await this.validateRequest(req)
     const sids: string[] = req.body.sids
 
-    const sockets = socket.getConnectedSockets(sids)
+    const sockets = await socket.getConnectedSockets(sids)
     socket.disconnectSockets(sockets)
 
     this.sendResponse(req, res, { data: sockets.map(ele => ele.id), message: 'following sockets disconnected successfully' })

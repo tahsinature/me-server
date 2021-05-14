@@ -6,7 +6,7 @@ class Controller extends BaseController {
   requestValidationSchema = {}
 
   requestHandler = async (req: Request, res: Response) => {
-    const sockets = socket.getConnectedSockets()
+    const sockets = await socket.getConnectedSockets()
 
     this.sendResponse(req, res, {
       data: sockets.map(socket => ({
