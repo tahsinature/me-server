@@ -40,7 +40,7 @@ adminRoutes.post('/msg-to-visitor', controllers.api.admin.msgToVisitor.requestHa
 
 const devRoutes = Router()
 devRoutes.get('/socket/sids', controllers.api.dev.getSocketConnections.requestHandler)
-devRoutes.get('/socket/remove-all-connections', controllers.api.dev.removeAllSocketConnections.requestHandler)
+devRoutes.post('/socket/remove-connections', controllers.api.dev.removeAllSocketConnections.requestHandler)
 
 router.use('/health', healthRoutes)
 router.use('/admin', adminRoutes)
