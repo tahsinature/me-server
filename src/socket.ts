@@ -1,35 +1,36 @@
-import socketIo, { Socket } from 'socket.io'
+import socketIo, { Socket, Server } from 'socket.io'
 import { Server as HttpServer } from 'http'
-import controllers from '@root/src/controllers'
+import { instrument } from '@socket.io/admin-ui'
 
 let io: socketIo.Server
 
 class MySocket {
-  initSocket = (server: HttpServer) => {
-    io = socketIo(server)
-    io.on('connection', async socket => {
-      const socketId = socket.id
-      const { headers, address } = socket.handshake
-
-      console.log(address)
-
-      const connection = await controllers.socket.handleNewConnection({
-        ip: address,
-        meta: headers,
-        socketId,
-      })
-
-      socket.emit('SOCKET_CONNECTED')
-
-      socket.on('disconnect', () => controllers.socket.handleDisconnect(connection))
+  initSocket = async (server: HttpServer) => {
+    io = new Server(server, {
+      cors: {
+        origin: ['http://localhost:3000', 'https://admin.socket.io'],
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['my-custom-header'],
+        credentials: true,
+      },
     })
+
+    instrument(io, { auth: false })
+
+    return io
   }
 
-  getConnectedSockets = (sids?: string[]) => {
+  getConnectedSockets = async (sidsToFilter?: string[]) => {
     this.makeSureInitDone()
 
-    let connections: Socket[] = Object.values(io.sockets.connected)
-    if (sids) connections = connections.filter(ele => sids.includes(ele.id))
+    const allSids = await io.allSockets()
+
+    let connections: Socket[] = []
+    allSids.forEach(ele => {
+      const socket = io.sockets.sockets.get(ele)
+      if (!sidsToFilter) connections.push(socket)
+      else if (sidsToFilter.includes(ele)) connections.push(socket)
+    })
 
     return connections
   }

@@ -2,6 +2,7 @@ import { Router } from 'express'
 import swaggerUi, { SwaggerUiOptions } from 'swagger-ui-express'
 import middlewares from '@root/src/middlewares'
 import controllers from '@root/src/controllers'
+import { Server } from 'socket.io'
 
 const apiSpec = require('@root/openapi.json')
 const swaggerUiOptions: SwaggerUiOptions = { customCss: '.swagger-ui .topbar { display: none }' }
@@ -47,5 +48,25 @@ router.use('/admin', adminRoutes)
 router.use('/visitor', visitorRoutes)
 router.use('/dev', devRoutes)
 router.use('/book', bookRouts)
+
+/**
+ * socket
+ */
+export const initSocketRouts = async (io: Server) => {
+  io.on('connection', async socket => {
+    const socketId = socket.id
+    const { headers, address } = socket.handshake
+
+    const connection = await controllers.socket.handleNewConnection.handle({
+      ip: address,
+      meta: headers,
+      socketId,
+    })
+
+    socket.emit('SOCKET_CONNECTED')
+
+    socket.on('disconnect', () => controllers.socket.handleDisconnect.handle(connection))
+  })
+}
 
 export default router
