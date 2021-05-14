@@ -14,8 +14,9 @@ interface IRequestValidationSchema {
 }
 
 export abstract class BaseController {
-  public requestValidationSchema: IRequestValidationSchema
+  abstract requestValidationSchema: IRequestValidationSchema
   public services = services
+  public Joi = Joi
 
   async validateRequest(req: Request) {
     const { query, body, headers, params } = req
