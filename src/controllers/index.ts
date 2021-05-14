@@ -14,6 +14,8 @@ import removeAllSocketConnections from '@root/src/controllers/api/dev/removeAllS
 import getAppStatus from '@root/src/controllers/api/health/getAppStatus'
 import getList from '@root/src/controllers/api/visitor/getList'
 import getMarkdown from '@root/src/controllers/api/visitor/getMarkdown'
+import handleDisconnect from '@root/src/controllers/socket/handleDisconnect'
+import handleNewConnection from '@root/src/controllers/socket/handleNewConnection'
 
 const api = {
   admin: {
@@ -48,8 +50,14 @@ const api = {
   },
 }
 
+const socket = {
+  handleNewConnection,
+  handleDisconnect,
+}
+
 const controllers = {
   api,
+  socket,
 }
 
 export default controllers

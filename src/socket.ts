@@ -1,30 +1,53 @@
-import socketIo from 'socket.io'
+import socketIo, { Socket } from 'socket.io'
 import { Server as HttpServer } from 'http'
-import handleNewConnection from '@src/controllers/socket/handleNewConnection'
-import handleDisconnect from '@src/controllers/socket/handleDisconnect'
+import controllers from '@root/src/controllers'
 
 let io: socketIo.Server
 
-export const initSocket = (server: HttpServer) => {
-  io = socketIo(server)
+class MySocket {
+  initSocket = (server: HttpServer) => {
+    io = socketIo(server)
+    io.on('connection', async socket => {
+      const socketId = socket.id
+      const { headers, address } = socket.handshake
 
-  io.on('connection', async socket => {
-    const socketId = socket.id
-    const { headers, address } = socket.handshake
+      console.log(address)
 
-    const connection = await handleNewConnection({
-      ip: address,
-      meta: headers,
-      socketId,
+      const connection = await controllers.socket.handleNewConnection({
+        ip: address,
+        meta: headers,
+        socketId,
+      })
+
+      socket.emit('SOCKET_CONNECTED')
+
+      socket.on('disconnect', () => controllers.socket.handleDisconnect(connection))
     })
+  }
 
-    socket.emit('SOCKET_CONNECTED')
+  getConnectedSockets = (sids?: string[]) => {
+    this.makeSureInitDone()
 
-    socket.on('disconnect', () => handleDisconnect(connection))
-  })
+    let connections: Socket[] = Object.values(io.sockets.connected)
+    if (sids) connections = connections.filter(ele => sids.includes(ele.id))
+
+    return connections
+  }
+
+  disconnectSockets = (sockets: Socket[]) => {
+    for (const socket of sockets) {
+      socket.disconnect()
+    }
+  }
+
+  getIO = () => {
+    this.makeSureInitDone()
+    return io
+  }
+
+  private makeSureInitDone = () => {
+    if (!io) throw new Error('io not initialized')
+  }
 }
 
-export const getIO = () => {
-  if (!io) throw new Error('io not initialized')
-  return io
-}
+export default new MySocket()

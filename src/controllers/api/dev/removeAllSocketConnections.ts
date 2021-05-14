@@ -1,20 +1,22 @@
 import { BaseController } from '@src/controllers/api/baseController'
 import { Request, Response } from 'express'
-import Joi from 'joi'
-import { getIO } from '@src/socket'
+import socket from '@src/socket'
 
 class Controller extends BaseController {
-  requestValidationSchema = {}
+  requestValidationSchema = {
+    body: this.Joi.object({
+      sids: this.Joi.array().items(this.Joi.string().required()),
+    }).required(),
+  }
 
   requestHandler = async (req: Request, res: Response) => {
-    const io = getIO()
-    const connections = Object.values(io.of('/').connected)
-    console.log(connections)
-    for (const connection of connections) {
-      connection.disconnect()
-    }
+    await this.validateRequest(req)
+    const sids: string[] = req.body.sids
 
-    res.status(204).end()
+    const sockets = socket.getConnectedSockets(sids)
+    socket.disconnectSockets(sockets)
+
+    this.sendResponse(req, res, { data: sockets.map(ele => ele.id), message: 'following sockets disconnected successfully' })
   }
 }
 

@@ -1,18 +1,19 @@
 import { BaseController } from '@src/controllers/api/baseController'
 import { Request, Response } from 'express'
-import Joi from 'joi'
-import { getIO } from '@src/socket'
+import socket from '@src/socket'
 
 class Controller extends BaseController {
-  requestValidationSchema = {
-    body: Joi.object({}).required(),
-    query: Joi.object({}).required(),
-    header: Joi.object({}).required(),
-  }
+  requestValidationSchema = {}
 
   requestHandler = async (req: Request, res: Response) => {
-    const io = getIO()
-    res.json(io.sockets.adapter.sids)
+    const sockets = socket.getConnectedSockets()
+
+    this.sendResponse(req, res, {
+      data: sockets.map(socket => ({
+        sid: socket.id,
+        connected: socket.connected,
+      })),
+    })
   }
 }
 
