@@ -35,6 +35,12 @@ class MySocket {
     return connections
   }
 
+  emitToSpecificSockets(sockets: Socket[], event: string, payload?: any) {
+    for (const socket of sockets) {
+      socket.emit(event, payload)
+    }
+  }
+
   disconnectSockets = (sockets: Socket[]) => {
     for (const socket of sockets) {
       socket.disconnect()
