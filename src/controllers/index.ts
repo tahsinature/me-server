@@ -9,6 +9,7 @@ import searchBook from '@root/src/controllers/api/book/searchBook'
 import getChatMsg from '@root/src/controllers/api/chat/getChatMsg'
 import msgToAdmin from '@root/src/controllers/api/chat/msgToAdmin'
 import sendBasicData from '@root/src/controllers/api/data/sendBasicData'
+import emitSocketEvent from '@root/src/controllers/api/dev/emitSocketEvent'
 import getSocketConnections from '@root/src/controllers/api/dev/getSocketConnections'
 import removeAllSocketConnections from '@root/src/controllers/api/dev/removeAllSocketConnections'
 import getAppStatus from '@root/src/controllers/api/health/getAppStatus'
@@ -40,6 +41,7 @@ const api = {
   dev: {
     getSocketConnections,
     removeAllSocketConnections,
+    emitSocketEvent,
   },
   health: {
     getAppStatus,
