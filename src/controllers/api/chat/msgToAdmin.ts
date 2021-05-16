@@ -10,12 +10,9 @@ class Controller extends BaseController {
   requestValidationSchema = {
     body: Joi.object({
       content: Joi.string().required(),
-      type: Joi.string()
-        .valid(...msgTypes)
-        .required(),
+      type: Joi.string().valid(...msgTypes),
+      // .required(),
     }).required(),
-    query: Joi.object({}).required(),
-    header: Joi.object({}).required(),
   }
 
   requestHandler = async (req: Request, res: Response) => {
@@ -24,19 +21,13 @@ class Controller extends BaseController {
     const { content, type } = req.body
     const { connection } = res.locals
 
-    const msg = await Message.createNew({
-      destination: 'admin',
-      author: connection._id.toString(),
-      content,
-      type,
-    })
+    const data = await this.services.chat.sendMsgToAdmin(connection, { content })
 
-    res.json({
-      type: msg.type,
-      text: msg.content,
-      isAdmin: msg.author === 'admin',
-      date: msg.toJSON().createdAt.toString(),
-    })
+    // type: msg.type,
+    // text: msg.content,
+    // isAdmin: msg.author === 'admin',
+    // date: msg.toJSON().createdAt.toString(),
+    this.sendResponse(req, res, { data })
   }
 }
 

@@ -24,7 +24,7 @@ class Controller extends BaseController {
     const { connection } = res.locals
 
     const msg = await Message.createNew({
-      destination,
+      chatId: '',
       author: connection._id.toString(),
       content,
       type,

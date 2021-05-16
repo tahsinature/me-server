@@ -1,15 +1,19 @@
-import Message from '@root/src/models/Message'
+import Message, { IMessageDoc } from '@root/src/models/Message'
 import faker from 'faker'
 import { IConnectionDoc } from '@src/models/Connection'
+import { IChatDoc } from '@root/src/models/Chat'
+import { BaseSeeder } from '@root/src/seeders/baseSeeder'
 
-class Seeder {
-  public async seed(connections: IConnectionDoc[], count: number) {
+class Seeder extends BaseSeeder<IMessageDoc> {
+  model = Message
+
+  public async seed(chats: IChatDoc[], count: number) {
     await Message.deleteMany({})
     const all = []
 
-    for (const connection of connections) {
+    for (const chat of chats) {
       for (const _i of Array(count)) {
-        const data = await this.createOne(connection)
+        const data = await this.createOne(chat)
         all.push(data)
       }
     }
@@ -17,11 +21,12 @@ class Seeder {
     return all
   }
 
-  public createOne(connection: IConnectionDoc) {
+  public createOne(chat: IChatDoc) {
     return Message.create({
-      content: faker.lorem.words(5),
+      chatId: chat.id,
       type: 'text',
-      author: connection.id.toString(),
+      content: faker.lorem.sentence(),
+      author: 'static for now',
     })
   }
 }

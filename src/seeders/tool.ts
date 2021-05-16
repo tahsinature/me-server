@@ -1,8 +1,11 @@
-import Tool from '@root/src/models/Tool'
+import Tool, { IToolDoc } from '@root/src/models/Tool'
+import { BaseSeeder } from '@root/src/seeders/baseSeeder'
 import faker from 'faker'
 import data from './data'
 
-class Seeder {
+class Seeder extends BaseSeeder<IToolDoc> {
+  model = Tool
+
   public async createMany(count: number) {
     await Tool.deleteMany({})
     const all = []

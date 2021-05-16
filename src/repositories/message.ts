@@ -8,11 +8,19 @@ class Repository {
   }
 
   getAll(authorId: string) {
-    return Message.find({ author: authorId })
+    return this.model.find({ author: authorId })
+  }
+
+  getByChatId(chatId: string, page: number) {
+    const itemPerPage = 10
+    return this.model
+      .find({ chatId })
+      .limit(itemPerPage)
+      .skip((page - 1) * itemPerPage)
   }
 
   getAllVisitorMsgsForAdmin() {
-    return Message.aggregate([
+    return this.model.aggregate([
       {
         $group: {
           _id: {

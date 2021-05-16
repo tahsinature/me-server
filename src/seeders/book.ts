@@ -1,7 +1,10 @@
-import Book from '@root/src/models/Book'
+import Book, { IBookDoc } from '@root/src/models/Book'
+import { BaseSeeder } from '@root/src/seeders/baseSeeder'
 import faker from 'faker'
 
-class Seeder {
+class Seeder extends BaseSeeder<IBookDoc> {
+  model = Book
+
   public async seed(count: number) {
     await Book.deleteMany({})
     const all = []

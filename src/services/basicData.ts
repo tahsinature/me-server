@@ -7,6 +7,7 @@ class Service {
     const personal = {
       name: 'Mohammad Tahsin',
       email: 'hello@tahsinature.me',
+      profession: 'Software Developer',
       avatar: 'https://avatars2.githubusercontent.com/u/41298152',
     }
 

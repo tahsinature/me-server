@@ -3,7 +3,7 @@ import connectionRoles from '@src/constants/connectionRoles'
 
 export interface IConnection {
   ip: string
-  socketId?: string
+  socketId?: string | null
   role?: string
 }
 
@@ -12,7 +12,7 @@ export type IConnectionDoc = IConnection & Document
 const schema = new Schema(
   {
     ip: { type: String, required: true, unique: true },
-    socketId: { type: String },
+    socketId: { type: String, default: null },
     role: { type: String, enum: Object.values(connectionRoles) },
   },
   { timestamps: true },

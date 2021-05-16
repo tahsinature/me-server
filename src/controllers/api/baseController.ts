@@ -42,7 +42,7 @@ export abstract class BaseController {
       })
   }
 
-  async checkIfUrlParamIsObjectId(param: string) {
+  checkIfUrlParamIsObjectId(param: string) {
     const isValid = mongoose.isValidObjectId(param)
     if (!isValid) throw new BadRequest({ flag: flags.INVALID_URL_PARAM, message: 'url param is not valid object id' })
   }

@@ -1,8 +1,11 @@
-import Connection from '@root/src/models/Connection'
+import Connection, { IConnectionDoc } from '@root/src/models/Connection'
+import { BaseSeeder } from '@root/src/seeders/baseSeeder'
 import faker from 'faker'
 
-class Seeder {
-  public async seed(ips?: string[]) {
+class Seeder extends BaseSeeder<IConnectionDoc> {
+  model = Connection
+
+  public async createMany(ips?: string[]) {
     if (ips) ips = Array.from({ length: 3 }, () => faker.internet.ip())
     await Connection.deleteMany({})
     const all = []

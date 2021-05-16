@@ -6,7 +6,8 @@ import msgToVisitor from '@root/src/controllers/api/admin/msgToVisitor'
 import addBook from '@root/src/controllers/api/book/addBook'
 import getAllBooks from '@root/src/controllers/api/book/getAllBooks'
 import searchBook from '@root/src/controllers/api/book/searchBook'
-import getChatMsg from '@root/src/controllers/api/chat/getChatMsg'
+import getChats from '@root/src/controllers/api/chat/getChats'
+import getMsgs from '@root/src/controllers/api/chat/getMsgs'
 import msgToAdmin from '@root/src/controllers/api/chat/msgToAdmin'
 import sendBasicData from '@root/src/controllers/api/data/sendBasicData'
 import emitSocketEvent from '@root/src/controllers/api/dev/emitSocketEvent'
@@ -32,7 +33,8 @@ const api = {
     searchBook,
   },
   chat: {
-    getChatMsg,
+    getChats,
+    getMsgs,
     msgToAdmin,
   },
   data: {

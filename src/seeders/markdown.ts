@@ -1,7 +1,10 @@
-import Markdown from '@root/src/models/Markdown'
+import Markdown, { IMarkdownDoc } from '@root/src/models/Markdown'
+import { BaseSeeder } from '@root/src/seeders/baseSeeder'
 import faker from 'faker'
 
-class Seeder {
+class Seeder extends BaseSeeder<IMarkdownDoc> {
+  model = Markdown
+
   public async createMany(count: number) {
     await Markdown.deleteMany({})
     const all = []

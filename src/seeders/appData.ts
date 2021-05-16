@@ -1,6 +1,8 @@
-import AppData from '@root/src/models/AppData'
+import AppData, { IAppDataDoc } from '@root/src/models/AppData'
+import { BaseSeeder } from '@root/src/seeders/baseSeeder'
 
-class Seeder {
+class Seeder extends BaseSeeder<IAppDataDoc> {
+  model = AppData
   public createOne() {
     return AppData.create({
       tools: [

@@ -1,3 +1,4 @@
+import chat from '@root/src/repositories/chat'
 import request from '@root/src/repositories/request'
 import appData from '@src/repositories/appData'
 import connection from '@src/repositories/connection'
@@ -12,4 +13,5 @@ export const repositories = {
   message,
   request,
   tool,
+  chat,
 }
