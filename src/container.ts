@@ -1,7 +1,6 @@
 import logger from '@root/src/logger'
 import express, { Request, Response, NextFunction } from 'express'
 import 'express-async-errors'
-import bodyParser from 'body-parser'
 import compression from 'compression'
 import path from 'path'
 import flags from '@src/errors/flags'
@@ -17,8 +16,8 @@ const app = express()
 app.use(cors())
 app.use(morgan('dev'))
 app.use(compression())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 
 app.use(router)
