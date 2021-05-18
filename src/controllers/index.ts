@@ -14,6 +14,7 @@ import emitSocketEvent from '@root/src/controllers/api/dev/emitSocketEvent'
 import getSocketConnections from '@root/src/controllers/api/dev/getSocketConnections'
 import removeAllSocketConnections from '@root/src/controllers/api/dev/removeAllSocketConnections'
 import getAppStatus from '@root/src/controllers/api/health/getAppStatus'
+import connection from '@root/src/controllers/api/visitor/connection'
 import getList from '@root/src/controllers/api/visitor/getList'
 import getMarkdown from '@root/src/controllers/api/visitor/getMarkdown'
 import handleDisconnect from '@root/src/controllers/socket/handleDisconnect'
@@ -51,6 +52,7 @@ const api = {
   visitor: {
     getList,
     getMarkdown,
+    connection,
   },
 }
 
