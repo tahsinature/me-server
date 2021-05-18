@@ -1,9 +1,15 @@
+import connectionRoles from '@root/src/constants/connectionRoles'
 import { repositories } from '@src/repositories'
 import axios from 'axios'
 import _ from 'lodash'
 import { isIP } from 'net'
 
 class Service {
+  async initVisitorConnection(ip: string) {
+    const connection = await repositories.connection.findOrCreateConnection({ ip, role: connectionRoles.visitor })
+    return connection
+  }
+
   async saveRequest(options: { ip: string; url: string }) {
     let lookUpData = null
     options.ip = _.last(options.ip.split(':'))

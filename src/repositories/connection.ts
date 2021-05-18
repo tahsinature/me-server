@@ -4,6 +4,10 @@ import Connection, { IConnection, IConnectionDoc } from '@src/models/Connection'
 class Repository {
   private model = Connection
 
+  async findById(id: string) {
+    return this.model.findById(id)
+  }
+
   async justFindByIp(ip: string) {
     return this.model.findOne({ ip })
   }
