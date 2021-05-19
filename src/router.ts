@@ -3,6 +3,7 @@ import swaggerUi, { SwaggerUiOptions } from 'swagger-ui-express'
 import middlewares from '@root/src/middlewares'
 import controllers from '@root/src/controllers'
 import { Server } from 'socket.io'
+import { services } from '@src/services'
 
 const apiSpec = require('@root/openapi.json')
 const swaggerUiOptions: SwaggerUiOptions = { customCss: '.swagger-ui .topbar { display: none }' }
@@ -57,13 +58,27 @@ router.use('/book', bookRouts)
  * socket
  */
 export const initSocketRouts = async (io: Server) => {
-  io.on('connection', async socket => {
+  const visitorNsp = io.of('visitor')
+
+  visitorNsp.use(async (socket, next) => {
+    const connectionId = socket.request.headers['connection-id'] as string
+    try {
+      const doesConnectionExists = await services.connection.doesConnectionExists(connectionId)
+      if (doesConnectionExists) next()
+      else throw new Error('connection not found')
+    } catch (err) {
+      next(err)
+    }
+  })
+
+  visitorNsp.on('connection', async socket => {
+    const connectionId = socket.request.headers['connection-id'] as string
     const socketId = socket.id
     const { headers, address } = socket.handshake
 
     const connection = await controllers.socket.handleNewConnection.handle({
       ip: address,
-      meta: headers,
+      connectionId,
       socketId,
     })
 
