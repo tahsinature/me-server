@@ -12,6 +12,7 @@ class Controller extends BaseController {
       data: sockets.map(socket => ({
         sid: socket.id,
         connected: socket.connected,
+        nsp: socket.nsp.name,
       })),
     })
   }

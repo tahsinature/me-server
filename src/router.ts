@@ -2,8 +2,8 @@ import { Router } from 'express'
 import swaggerUi, { SwaggerUiOptions } from 'swagger-ui-express'
 import middlewares from '@root/src/middlewares'
 import controllers from '@root/src/controllers'
-import { Server } from 'socket.io'
 import { services } from '@src/services'
+import socket from '@src/socket'
 
 const apiSpec = require('@root/openapi.json')
 const swaggerUiOptions: SwaggerUiOptions = { customCss: '.swagger-ui .topbar { display: none }' }
@@ -57,8 +57,8 @@ router.use('/book', bookRouts)
 /**
  * socket
  */
-export const initSocketRouts = async (io: Server) => {
-  const visitorNsp = io.of('visitor')
+export const initSocketRouts = async () => {
+  const visitorNsp = socket.namespaces.visitor
 
   visitorNsp.use(async (socket, next) => {
     const connectionId = socket.request.headers['connection-id'] as string

@@ -1,10 +1,15 @@
-import socketIo, { Socket, Server } from 'socket.io'
+import socketIo, { Socket, Server, Namespace } from 'socket.io'
 import { Server as HttpServer } from 'http'
 import { instrument } from '@socket.io/admin-ui'
 
 let io: socketIo.Server
 
 class MySocket {
+  public namespaces: {
+    visitor: Namespace
+    admin: Namespace
+  }
+
   initSocket = async (server: HttpServer) => {
     io = new Server(server, {
       cors: {
@@ -15,6 +20,11 @@ class MySocket {
       },
     })
 
+    this.namespaces = {
+      visitor: io.of('visitor'),
+      admin: io.of('admin'),
+    }
+
     instrument(io, { auth: false })
 
     return io
@@ -23,16 +33,12 @@ class MySocket {
   getConnectedSockets = async (sidsToFilter?: string[]) => {
     this.makeSureInitDone()
 
-    const allSids = await io.allSockets()
+    const allSocketsMap = [...this.namespaces.admin.sockets, ...this.namespaces.visitor.sockets]
 
-    let connections: Socket[] = []
-    allSids.forEach(ele => {
-      const socket = io.sockets.sockets.get(ele)
-      if (!sidsToFilter) connections.push(socket)
-      else if (sidsToFilter.includes(ele)) connections.push(socket)
+    return allSocketsMap.map(([_, socket]) => {
+      if (!sidsToFilter) return socket
+      else if (sidsToFilter.includes(socket.id)) return socket
     })
-
-    return connections
   }
 
   emitToSpecificSockets(sockets: Socket[], event: string, payload?: any) {

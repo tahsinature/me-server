@@ -17,8 +17,8 @@ class Server {
     const port = process.env.PORT || 3001
     const server = new http.Server(this.container.app).listen(port)
 
-    const io = await socket.initSocket(server)
-    await initSocketRouts(io)
+    await socket.initSocket(server)
+    await initSocketRouts()
     await repositories.connection.refreshSocketIds()
 
     console.log('\x1b[36m%s\x1b[0m', `🌏 Express server started at http://localhost:${port}`)
