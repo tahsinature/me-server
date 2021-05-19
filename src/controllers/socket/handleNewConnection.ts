@@ -2,8 +2,8 @@ import { repositories } from '@root/src/repositories'
 import socket from '@root/src/socket'
 
 class SocketController {
-  async handle(options: { socketId: string; meta: any; ip: string }) {
-    const previousConnection = await repositories.connection.justFindByIp(options.ip)
+  async handle(options: { socketId: string; connectionId: string; ip: string }) {
+    const previousConnection = await repositories.connection.findById(options.connectionId)
     if (previousConnection) {
       const socketWithPreviousConnection = (await socket.getConnectedSockets([previousConnection.socketId]))[0]
       if (socketWithPreviousConnection) socket.disconnectSockets([socketWithPreviousConnection])
