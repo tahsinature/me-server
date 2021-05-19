@@ -3,19 +3,12 @@ import { repositories } from '@src/repositories'
 import axios from 'axios'
 import _ from 'lodash'
 import { isIP } from 'net'
+import { IConnectionDoc } from '@src/models/Connection'
 
 class Service {
-  async initVisitorConnection(ip: string) {
-    let lookUpData = null
-    ip = _.last(ip.split(':'))
-
-    const isValidIPv4 = isIP(ip) === 4
-    if (isValidIPv4) {
-      const { data } = await axios.get(`https://ipapi.co/${ip}/json`)
-      lookUpData = data
-    }
-
-    const connection = await repositories.connection.findOrCreateConnection({ ip, role: connectionRoles.visitor })
+  async initVisitorConnection(connectionId: string, ip: string) {
+    const connection = await repositories.connection.findOrCreateConnectionById(connectionId)
+    await repositories.connection.updateIpInfo(connection, ip)
 
     return connection
   }

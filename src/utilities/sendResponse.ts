@@ -3,6 +3,7 @@ import Joi from 'joi'
 import faker from 'faker'
 
 interface IDataToSend {
+  httpCode: number
   requestId: string
   errors: string[]
   data: any
@@ -33,6 +34,7 @@ const sendResponse = (
   const message = option.message || (status < 300 ? 'success' : 'error')
 
   const dataToSend: IDataToSend = {
+    httpCode: status,
     requestId: (req.headers['request-id'] as string) || faker.random.uuid(),
     errors: errMsgs,
     data: option.data,

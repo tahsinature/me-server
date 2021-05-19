@@ -1,5 +1,9 @@
 import socket from '@root/src/socket'
 import Connection, { IConnection, IConnectionDoc } from '@src/models/Connection'
+import _ from 'lodash'
+import { isIP } from 'net'
+import axios from 'axios'
+import utilities from '@src/utilities'
 
 class Repository {
   private model = Connection
@@ -12,9 +16,28 @@ class Repository {
     return this.model.findOne({ ip })
   }
 
-  findOrCreateConnection = async (data: IConnection) => {
-    let connection = await this.justFindByIp(data.ip)
-    if (!connection) connection = await this.model.create(data)
+  findOrCreateConnectionById = async (id: string) => {
+    let connection: IConnectionDoc
+    if (utilities.isValidObjectId(id)) connection = await this.findById(id)
+
+    if (!connection) connection = await this.model.create({})
+    return connection
+  }
+
+  updateIpInfo = async (connection: IConnectionDoc, ip: string) => {
+    let lookUpData = null
+    ip = _.last(ip.split(':'))
+
+    const isValidIPv4 = isIP(ip) === 4
+    if (isValidIPv4) {
+      const { data } = await axios.get(`https://ipapi.co/${ip}/json`)
+      lookUpData = data
+    } else ip = `invalid ip (${ip})`
+
+    connection.ip = ip
+    connection.lookUpData = lookUpData
+    await connection.save()
+
     return connection
   }
 

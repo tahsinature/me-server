@@ -21,7 +21,7 @@ bookRouts.get('/all', controllers.api.book.getAllBooks.requestHandler)
 bookRouts.get('/search', controllers.api.book.searchBook.requestHandler)
 
 const visitorRoutes = Router()
-visitorRoutes.get('/connection', controllers.api.visitor.connection.requestHandler)
+visitorRoutes.post('/connection', controllers.api.visitor.connection.requestHandler)
 visitorRoutes.use(middlewares.checkVisitorConnection)
 // visitorRoutes.use(middlewares.socketCheck)
 // visitorRoutes.use(middlewares.migrateConnection.toVisitor)
@@ -77,7 +77,6 @@ export const initSocketRouts = async () => {
     const { headers, address } = socket.handshake
 
     const connection = await controllers.socket.handleNewConnection.handle({
-      ip: address,
       connectionId,
       socketId,
     })
