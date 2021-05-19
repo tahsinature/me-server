@@ -10,6 +10,11 @@ class Service {
     return connection
   }
 
+  async doesConnectionExists(connectionId: string) {
+    const connection = await repositories.connection.findById(connectionId)
+    return Boolean(connection)
+  }
+
   async saveRequest(options: { ip: string; url: string }) {
     let lookUpData = null
     options.ip = _.last(options.ip.split(':'))
