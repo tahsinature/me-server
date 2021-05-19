@@ -8,9 +8,9 @@ class MySocket {
   initSocket = async (server: HttpServer) => {
     io = new Server(server, {
       cors: {
-        origin: ['http://localhost:3000', 'https://admin.socket.io', 'https://tahsinature.me'],
+        origin: ['http://localhost:3000', 'https://admin.socket.io', 'https://tahsinature.me', 'https://amritb.github.io/socketio-client-tool', 'https://hoppscotch.io'],
         methods: ['GET', 'POST'],
-        allowedHeaders: ['my-custom-header'],
+        allowedHeaders: ['connection-id'],
         credentials: true,
       },
     })
