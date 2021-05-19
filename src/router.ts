@@ -22,7 +22,7 @@ bookRouts.get('/search', controllers.api.book.searchBook.requestHandler)
 
 const visitorRoutes = Router()
 visitorRoutes.get('/connection', controllers.api.visitor.connection.requestHandler)
-visitorRoutes.use(middlewares.logRequest, middlewares.checkVisitorConnection)
+visitorRoutes.use(middlewares.checkVisitorConnection)
 // visitorRoutes.use(middlewares.socketCheck)
 // visitorRoutes.use(middlewares.migrateConnection.toVisitor)
 visitorRoutes.get('/chats', controllers.api.chat.getChats.requestHandler)

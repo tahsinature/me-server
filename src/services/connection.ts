@@ -6,26 +6,23 @@ import { isIP } from 'net'
 
 class Service {
   async initVisitorConnection(ip: string) {
+    let lookUpData = null
+    ip = _.last(ip.split(':'))
+
+    const isValidIPv4 = isIP(ip) === 4
+    if (isValidIPv4) {
+      const { data } = await axios.get(`https://ipapi.co/${ip}/json`)
+      lookUpData = data
+    }
+
     const connection = await repositories.connection.findOrCreateConnection({ ip, role: connectionRoles.visitor })
+
     return connection
   }
 
   async doesConnectionExists(connectionId: string) {
     const connection = await repositories.connection.findById(connectionId)
     return Boolean(connection)
-  }
-
-  async saveRequest(options: { ip: string; url: string }) {
-    let lookUpData = null
-    options.ip = _.last(options.ip.split(':'))
-
-    const isValidIPv4 = isIP(options.ip) === 4
-    if (isValidIPv4) {
-      const { data } = await axios.get(`https://ipapi.co/${options.ip}/json`)
-      lookUpData = data
-    }
-
-    await repositories.request.createNew({ ip: options.ip, url: options.url, lookUpData })
   }
 
   async getRequests(query: { ipexclude?: string; after?: string; compact?: boolean }) {

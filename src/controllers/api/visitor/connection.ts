@@ -5,7 +5,7 @@ class Controller extends BaseController {
   requestValidationSchema = {}
 
   requestHandler = async (req: Request, res: Response) => {
-    const { ip } = req
+    const ip = (req.headers['x-forwarded-for'] as string) || req.connection.remoteAddress
     const connection = await this.services.connection.initVisitorConnection(ip)
 
     this.sendResponse(req, res, { data: connection })
