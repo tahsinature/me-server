@@ -28,6 +28,8 @@ class Repository {
     let lookUpData = null
     ip = _.last(ip.split(':'))
 
+    console.log(ip)
+
     const isValidIPv4 = isIP(ip) === 4
     if (isValidIPv4) {
       const { data } = await axios.get(`https://ipapi.co/${ip}/json`)
