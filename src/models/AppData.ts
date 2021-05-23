@@ -9,7 +9,10 @@ export interface IAppDate {
   }[]
 }
 
-export type IAppDataDoc = IAppDate & Document
+export interface IAppDataDoc extends IAppDate, Document {
+  createdAt: Date
+  updatedAt: Date
+}
 
 const schema = new Schema({
   tools: { type: Object, required: true },

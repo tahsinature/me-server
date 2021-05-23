@@ -5,7 +5,10 @@ export interface IBook {
   author: string
 }
 
-export type IBookDoc = IBook & Document
+export interface IBookDoc extends IBook, Document {
+  createdAt: Date
+  updatedAt: Date
+}
 
 const schema = new Schema({
   name: { type: String, required: true },
