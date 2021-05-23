@@ -7,10 +7,11 @@ import { IConnectionDoc } from '@src/models/Connection'
 
 class Service {
   async initVisitorConnection(connectionId: string, ip: string) {
+    const isNewConnection = !(await this.doesConnectionExists(connectionId))
     const connection = await repositories.connection.findOrCreateConnectionById(connectionId)
     await repositories.connection.updateIpInfo(connection, ip)
 
-    return connection
+    return { connection, isNewConnection }
   }
 
   async doesConnectionExists(connectionId: string) {

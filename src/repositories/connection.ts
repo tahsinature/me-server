@@ -9,7 +9,9 @@ class Repository {
   private model = Connection
 
   async findById(id: string) {
-    return this.model.findById(id)
+    let connection = null
+    if (utilities.isValidObjectId(id)) connection = await this.model.findById(id)
+    return connection
   }
 
   async justFindByIp(ip: string) {
