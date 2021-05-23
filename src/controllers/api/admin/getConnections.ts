@@ -1,6 +1,5 @@
 import { BaseController } from '@src/controllers/api/baseController'
 import { Request, Response } from 'express'
-import Joi from 'joi'
 import connection from '@root/src/services/connection'
 
 class Controller extends BaseController {
