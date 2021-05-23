@@ -8,7 +8,10 @@ export interface IConnection {
   role?: string
 }
 
-export type IConnectionDoc = IConnection & Document
+export interface IConnectionDoc extends IConnection, Document {
+  createdAt: Date
+  updatedAt: Date
+}
 
 const schema = new Schema(
   {

@@ -67,8 +67,9 @@ class Repository {
     await connection.save()
   }
 
-  async getAllActive() {
-    return Connection.find({ socketId: { $exists: true } })
+  async getAll(activeOnly = false) {
+    const query = activeOnly ? { socketId: { $exists: true } } : {}
+    return Connection.find(query).sort({ createdAt: -1 })
   }
 }
 

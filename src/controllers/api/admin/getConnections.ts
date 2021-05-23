@@ -1,29 +1,17 @@
 import { BaseController } from '@src/controllers/api/baseController'
 import { Request, Response } from 'express'
 import Joi from 'joi'
-import AppData from '@src/repositories/appData'
-import Connection from '@src/repositories/connection'
-import connectionRoles from '@src/constants/connectionRoles'
+import connection from '@root/src/services/connection'
 
 class Controller extends BaseController {
-  requestValidationSchema = {
-    body: Joi.object({}).required(),
-    query: Joi.object({}).required(),
-    header: Joi.object({}).required(),
-  }
+  requestValidationSchema = {}
 
   requestHandler = async (req: Request, res: Response) => {
     await this.validateRequest(req)
 
-    const connections = await Connection.getAllActive()
-    const data = connections.map(ele => ({
-      _id: ele._id.toString(),
-      ip: ele.ip,
-      socketId: ele.socketId,
-      role: ele.role,
-    }))
+    const data = await connection.getConnections()
 
-    res.json(data)
+    this.sendResponse(req, res, { data })
   }
 }
 

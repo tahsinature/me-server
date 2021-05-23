@@ -19,6 +19,18 @@ class Service {
     return Boolean(connection)
   }
 
+  async getConnections() {
+    const connections = await repositories.connection.getAll()
+    return connections.map(ele => ({
+      _id: ele._id.toString(),
+      ip: ele.ip,
+      socketId: ele.socketId,
+      lookUpData: ele.lookUpData,
+      role: ele.role,
+      createdAt: ele.createdAt,
+    }))
+  }
+
   async getRequests(query: { ipexclude?: string; after?: string; compact?: boolean }) {
     let excludeIps: string[] = []
 
