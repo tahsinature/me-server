@@ -6,7 +6,11 @@ class SocketController {
     const connection = await repositories.connection.findOrCreateConnectionById(options.connectionId)
     if (connection.socketId) {
       const socketWithPreviousConnection = (await socket.getConnectedSockets([connection.socketId]))[0]
-      if (socketWithPreviousConnection) socket.disconnectSockets([socketWithPreviousConnection])
+
+      if (socketWithPreviousConnection) {
+        socket.disconnectSockets([socketWithPreviousConnection])
+        console.log(`disconnecting socket: ${socketWithPreviousConnection.id}`)
+      }
     }
 
     await repositories.connection.updateSocketId(connection, options.socketId)
