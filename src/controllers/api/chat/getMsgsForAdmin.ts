@@ -12,7 +12,7 @@ class Controller extends BaseController {
     await this.validateRequest(req)
     const { page } = req.query as any
 
-    const data = await this.services.chat.getMessages(res.locals.connection, page)
+    const data = await this.services.chat.getMessages(page)
 
     this.sendResponse(req, res, { data })
   }

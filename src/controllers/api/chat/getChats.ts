@@ -10,10 +10,7 @@ class Controller extends BaseController {
   requestHandler = async (req: Request, res: Response) => {
     await this.validateRequest(req)
 
-    const connection = await Connection.justFindByIp(req.ip)
-    if (!connection) throw new BadRequest({ message: "can't get msg before initializing socket connection", flag: flags.SOCKET_CONNECTION_NOT_FOUND })
-
-    const data = await this.services.chat.getChats(connection)
+    const data = await this.services.chat.getChats(res.locals.connection)
 
     this.sendResponse(req, res, { data })
   }

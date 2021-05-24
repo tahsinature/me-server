@@ -1,5 +1,5 @@
 import getConnections from '@root/src/controllers/api/admin/getConnections'
-import getMsg from '@root/src/controllers/api/admin/getMsg'
+import getChatsForAdmin from '@root/src/controllers/api/admin/getChatsForAdmin'
 import getRequests from '@root/src/controllers/api/admin/getRequests'
 import init from '@root/src/controllers/api/admin/init'
 import msgToVisitor from '@root/src/controllers/api/admin/msgToVisitor'
@@ -23,7 +23,7 @@ import handleNewConnection from '@root/src/controllers/socket/handleNewConnectio
 const api = {
   admin: {
     getConnections,
-    getMsg,
+    getChatsForAdmin,
     init,
     msgToVisitor,
     getRequests,

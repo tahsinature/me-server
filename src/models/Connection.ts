@@ -3,6 +3,7 @@ import connectionRoles from '@src/constants/connectionRoles'
 
 export interface IConnection {
   ip?: string
+  name?: string
   lookUpData?: any
   socketId?: string | null
   role?: string
@@ -16,6 +17,7 @@ export interface IConnectionDoc extends IConnection, Document {
 const schema = new Schema(
   {
     ip: { type: String },
+    name: { type: String, default: 'Anonymous' },
     lookUpData: { type: Schema.Types.Mixed, default: null },
     socketId: { type: String, default: null },
     role: { type: String, enum: Object.values(connectionRoles) },

@@ -7,6 +7,10 @@ class Repository {
     return this.model.find({ participants: { $in: authorId } })
   }
 
+  getAllChats() {
+    return this.model.find()
+  }
+
   initWithAdmin(authorId: string) {
     return this.model.create({ participants: [authorId, 'admin'] })
   }

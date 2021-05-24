@@ -1,21 +1,22 @@
 import { BaseController } from '@src/controllers/api/baseController'
 import { Request, Response } from 'express'
 import Joi from 'joi'
-import Message from '@src/repositories/message'
 
 class Controller extends BaseController {
   requestValidationSchema = {
-    body: Joi.object({}).required(),
-    query: Joi.object({}).required(),
-    header: Joi.object({}).required(),
+    query: Joi.object({
+      visitorConnectionId: this.Joi.string(),
+    }).required(),
   }
 
   requestHandler = async (req: Request, res: Response) => {
     await this.validateRequest(req)
 
-    const data = await Message.getAllVisitorMsgsForAdmin()
+    const visitorConnectionId = req.query.visitorConnectionId as string
 
-    res.json(data)
+    const data = await this.services.chat.getVisitorChatIdForAdmin(visitorConnectionId)
+
+    this.sendResponse(req, res, { data })
   }
 }
 

@@ -24,6 +24,7 @@ class Service {
     return connections.map(ele => ({
       _id: ele._id.toString(),
       ip: ele.ip,
+      name: ele.name,
       socketId: ele.socketId,
       lookUpData: ele.lookUpData,
       role: ele.role,
