@@ -67,9 +67,9 @@ class Repository {
     await connection.save()
   }
 
-  async getAll(activeOnly = false) {
+  async getAll({ activeOnly = false, excludedIps = [''] }) {
     const query = activeOnly ? { socketId: { $exists: true } } : {}
-    return Connection.find(query).sort({ createdAt: -1 })
+    return Connection.find({ ...query, ip: { $nin: excludedIps } }).sort({ createdAt: -1 })
   }
 }
 
