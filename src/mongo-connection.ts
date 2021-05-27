@@ -31,6 +31,11 @@ export default class MongoConnection {
     await mongoose.connect(this.mongoUrl, this.mongoConnectionOptions)
   }
 
+  public async dropMongoDB() {
+    logger.log({ level: 'info', message: 'Dropping database' })
+    await mongoose.connection.db.dropDatabase()
+  }
+
   private onConnected = () => {
     logger.log({ level: 'info', message: `Connected to MongoDB at ${this.mongoUrl}` })
     this.isConnectedBefore = true

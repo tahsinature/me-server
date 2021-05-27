@@ -1,6 +1,7 @@
+require('../../bin/common')
 import mongoose from 'mongoose'
 import request from 'supertest'
-import Container from '@src/container'
+import Container from '../../src/container'
 import flags from '../../src/errors/flags'
 import { seeders } from '../../src/seeders'
 import { repositories } from '../../src/repositories'
@@ -22,6 +23,10 @@ export class TestPack {
 
   async stopContainer() {
     await this.container.stop()
+  }
+
+  async resetResources() {
+    await this.container.resetResources()
   }
 
   utility = {

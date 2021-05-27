@@ -45,6 +45,10 @@ class Container {
     await this.mongoConnection.close()
     // await closeFirebase()
   }
+
+  public async resetResources() {
+    await this.mongoConnection.dropMongoDB()
+  }
 }
 
 export = Container
