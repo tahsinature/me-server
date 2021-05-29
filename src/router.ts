@@ -21,6 +21,7 @@ bookRouts.get('/all', controllers.api.book.getAllBooks.requestHandler)
 bookRouts.get('/search', controllers.api.book.searchBook.requestHandler)
 
 const visitorRoutes = Router()
+visitorRoutes.use(middlewares.logHttp)
 visitorRoutes.post('/connection', controllers.api.visitor.connection.requestHandler)
 visitorRoutes.use(middlewares.checkVisitorConnection)
 // visitorRoutes.use(middlewares.socketCheck)
