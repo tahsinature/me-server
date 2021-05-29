@@ -1,4 +1,4 @@
-import { TestPack } from '@root/__tests/utility/testPack'
+import { TestPack } from '../utility/testPack'
 
 const tp = new TestPack()
 

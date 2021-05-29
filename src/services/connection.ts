@@ -19,8 +19,8 @@ class Service {
     return Boolean(connection)
   }
 
-  async getConnections() {
-    const connections = await repositories.connection.getAll()
+  async getConnections(options: { excludedIps: string[] }) {
+    const connections = await repositories.connection.getAll({ excludedIps: options.excludedIps })
     return connections.map(ele => ({
       _id: ele._id.toString(),
       ip: ele.ip,
