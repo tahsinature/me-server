@@ -3,6 +3,7 @@ import { IChatDoc } from '@root/src/models/Chat'
 import { IConnectionDoc } from '@root/src/models/Connection'
 import { IMessageDoc } from '@root/src/models/Message'
 import { services } from '@root/src/services'
+import socket from '@root/src/socket'
 import { repositories } from '@src/repositories'
 
 class Service {
@@ -62,6 +63,7 @@ class Service {
 
   async sendMsgToVisitor(visitorConnectionId: string, data: { content: string }) {
     await this.makeSureValidConnection(visitorConnectionId)
+    const connection = await services.connection.getConnectionById(visitorConnectionId)
 
     const chats = (await repositories.chat.getChatIds([visitorConnectionId])) || []
     if (chats.length > 1) throw new Error('multiple chat room detedted')
@@ -70,6 +72,15 @@ class Service {
     // maybe send socket notification
 
     const message = await repositories.message.createNew({ author: 'admin', chatId: chats[0].id, content: data.content, type: 'text' })
+
+    const sockets = await socket.getConnectedSockets([connection.socketId])
+    socket.emitToSpecificSockets(sockets, 'NEW_MESSAGE', {
+      author: message.author,
+      content: message.content,
+      createdAt: message.createdAt,
+      updatedAt: message.updatedAt,
+    })
+
     return this.transformMsgToClientReadable([message])
   }
 
