@@ -1,13 +1,52 @@
 version: '3'
 
 services:
-  mongo:
-    container_name: mongo-dev
+  database:
+    container_name: me-server-mongo-db
     image: mongo:4.2.7
     ports:
       - 27017:27017
     networks:
       - dev-network
+
+  elasticsearch:
+    container_name: me-server-elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    environment:
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - transport.host=0.0.0.0
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - dev-network
+
+  kibana:
+    container_name: me-server-kibana
+    image: docker.elastic.co/kibana/kibana:7.9.2
+    depends_on:
+      - elasticsearch
+    volumes:
+      - kibana:/usr/share/kibana/data
+    environment:
+      ELASTICSEARCH_HOST_PORT: localhost:9200
+    ports:
+      - 5601:5601
+    networks:
+      - dev-network
+
+volumes:
+  kibana:
+  logstash:
+  elasticsearch:
 
 networks:
   dev-network:
